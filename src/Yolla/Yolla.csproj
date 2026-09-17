@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <Version>1.0.0</Version>
+    <Authors>Yolla contributors</Authors>
+    <Description>Send photos, videos and files from any phone or browser straight to a folder on your PC.</Description>
+  </PropertyGroup>
+
+</Project>

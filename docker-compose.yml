@@ -1,0 +1,56 @@
+# Yolla — docker compose
+#
+#   cp .env.example .env   (edit YOLLA_DIR and UPLOAD_TOKEN)
+#   docker compose up -d                                  -> http://localhost:8080
+#
+# Optional tunnels (pick one, or none and use your own reverse proxy — see docs/reverse-proxy.md):
+#   docker compose --profile quick      up -d             -> Cloudflare quick tunnel, random *.trycloudflare.com URL, no account
+#   docker compose --profile cloudflare up -d             -> Cloudflare named tunnel on your own domain (CLOUDFLARE_TUNNEL_TOKEN in .env)
+#   docker compose --profile ngrok      up -d             -> ngrok (NGROK_AUTHTOKEN in .env), URL at http://localhost:4040
+# Tip: put COMPOSE_PROFILES=quick (or cloudflare / ngrok) in .env so plain `docker compose up -d` includes it.
+#
+# By default the prebuilt image is pulled. To build from source instead:  docker compose build && docker compose up -d
+
+services:
+  yolla:
+    image: ${YOLLA_IMAGE:-ghcr.io/tekyaygilfethi/yolla:latest}
+    build: .
+    container_name: yolla
+    # Runs unprivileged. On Linux set PUID/PGID to the owner of YOLLA_DIR (the installer does this for you).
+    user: "${PUID:-1000}:${PGID:-1000}"
+    ports:
+      - "${YOLLA_BIND:-0.0.0.0}:${YOLLA_PORT:-8080}:8080"
+    volumes:
+      - "${YOLLA_DIR:-./uploads}:/data"
+    environment:
+      - UPLOAD_TOKEN=${UPLOAD_TOKEN:-}
+      - GROUP_BY_DATE=${GROUP_BY_DATE:-false}
+      - CHUNK_MB=${CHUNK_MB:-32}
+      - MAX_UPLOAD_MB=${MAX_UPLOAD_MB:-0}
+      - SHARE_DIR=${SHARE_DIR:-/data/Outbox}
+    restart: unless-stopped
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    profiles: ["cloudflare"]
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on: [yolla]
+    restart: unless-stopped
+
+  cloudflared-quick:
+    image: cloudflare/cloudflared:latest
+    profiles: ["quick"]
+    command: tunnel --no-autoupdate --url http://yolla:8080
+    depends_on: [yolla]
+    restart: unless-stopped
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    profiles: ["ngrok"]
+    command: http ${NGROK_DOMAIN:+--url=${NGROK_DOMAIN}} yolla:8080
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    ports:
+      - "127.0.0.1:4040:4040"
+    depends_on: [yolla]
+    restart: unless-stopped

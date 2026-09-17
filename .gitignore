@@ -1,0 +1,33 @@
+# ---- .NET build output
+bin/
+obj/
+out/
+publish/
+*.binlog
+
+# ---- Yolla runtime data — never commit uploads or secrets
+uploads/
+outbox/
+*.part
+.env
+.env.*
+!.env.example
+
+# ---- IDEs and editors
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.swp
+*~
+
+# ---- OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Local tooling (browser tests, scratch)
+node_modules/
+TestResults/
+*.log

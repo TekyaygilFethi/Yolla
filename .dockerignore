@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+.git/
+.github/
+docs/
+scripts/
+uploads/
+*.md
+.env
+.env.*

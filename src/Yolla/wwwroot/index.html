@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Yolla">
+<meta name="theme-color" id="themeColor" content="#f6f6f4">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Yolla</title>
+<style>
+  /* ------------------------------------------------------------------ tokens */
+  :root {
+    --bg: #f6f6f4;
+    --surface: #ffffff;
+    --surface-2: #f1f1ee;
+    --line: #e6e5e0;
+    --line-strong: #d6d5cf;
+    --text: #1a1a1a;
+    --text-2: #5f5e59;
+    --text-3: #8f8e88;
+    --accent: #1d5cf5;
+    --accent-ink: #ffffff;
+    --accent-soft: #e9efff;
+    --ok: #1f8a4c;
+    --ok-soft: #e6f4ec;
+    --warn: #b7791f;
+    --warn-soft: #fbf1df;
+    --err: #c8362b;
+    --err-soft: #fbe9e7;
+    --shadow: 0 1px 2px rgba(20, 20, 20, .04), 0 12px 32px -20px rgba(20, 20, 20, .25);
+    --radius: 16px;
+    --radius-s: 10px;
+    --ease: cubic-bezier(.2, .7, .2, 1);
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e0f11;
+    --surface: #17181b;
+    --surface-2: #1e1f23;
+    --line: #26272c;
+    --line-strong: #34363c;
+    --text: #ececea;
+    --text-2: #a4a4a0;
+    --text-3: #6f6f6b;
+    --accent: #5b8cff;
+    --accent-ink: #0b1220;
+    --accent-soft: #1b2540;
+    --ok: #4ccb7f;
+    --ok-soft: #14291d;
+    --warn: #e0a640;
+    --warn-soft: #2d2412;
+    --err: #ef6b60;
+    --err-soft: #331b18;
+    --shadow: 0 1px 0 rgba(255, 255, 255, .03) inset, 0 16px 40px -24px rgba(0, 0, 0, .8);
+    color-scheme: dark;
+  }
+
+  /* ------------------------------------------------------------------ base */
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, "Segoe UI", Roboto, system-ui, sans-serif;
+    font-feature-settings: "cv11", "ss01"; -webkit-font-smoothing: antialiased;
+    padding: max(12px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
+    transition: background .25s var(--ease), color .25s var(--ease);
+  }
+  main { max-width: 600px; margin: 0 auto; }
+  button { font: inherit; color: inherit; }
+  a { color: inherit; }
+  svg.i { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .num { font-variant-numeric: tabular-nums; }
+  .hidden { display: none !important; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+  /* ------------------------------------------------------------------ header */
+  header { display: flex; align-items: center; gap: 12px; padding: 8px 2px 14px; }
+  .logo { width: 38px; height: 38px; border-radius: 11px; flex: none; }
+  .brand { line-height: 1.15; }
+  .brand h1 { font-size: 19px; font-weight: 650; margin: 0; letter-spacing: -.01em; }
+  .brand div { font-size: 12.5px; color: var(--text-3); }
+  .tools { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+  .icon-btn {
+    width: 36px; height: 36px; border-radius: 10px; border: 1px solid transparent; background: transparent;
+    display: inline-flex; align-items: center; justify-content: center; color: var(--text-2); cursor: pointer;
+    transition: background .15s var(--ease), color .15s var(--ease), transform .12s var(--ease);
+  }
+  .icon-btn:hover { background: var(--surface-2); color: var(--text); }
+  .icon-btn:active { transform: scale(.94); }
+  .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .lang button { border: 0; background: transparent; padding: 6px 9px; font-size: 12.5px; font-weight: 600; color: var(--text-3); cursor: pointer; }
+  .lang button.on { background: var(--surface-2); color: var(--text); }
+
+  /* ------------------------------------------------------------------ tabs */
+  .tabs { position: relative; display: grid; grid-template-columns: 1fr 1fr; background: var(--surface-2); border-radius: 12px; padding: 4px; margin: 0 0 14px; }
+  .tabs .ind { position: absolute; top: 4px; left: 4px; width: calc(50% - 4px); height: calc(100% - 8px); background: var(--surface); border-radius: 9px; box-shadow: 0 1px 2px rgba(0,0,0,.08); transition: transform .28s var(--ease); }
+  .tabs button { position: relative; z-index: 1; border: 0; background: transparent; padding: 9px; border-radius: 9px; font-weight: 600; font-size: 14.5px; color: var(--text-3); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: color .2s var(--ease); }
+  .tabs button.on { color: var(--text); }
+  .tabs[data-tab="receive"] .ind { transform: translateX(100%); }
+  .tabs.single { grid-template-columns: 1fr; }
+  .tabs.single .ind { width: calc(100% - 8px); }
+
+  /* ------------------------------------------------------------------ cards & panels */
+  .panel { animation: rise .32s var(--ease) both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; margin-bottom: 12px; transition: border-color .2s var(--ease), background .25s var(--ease); }
+  .card.enter { animation: rise .32s var(--ease) both; }
+  .meta { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--text-3); padding: 0 4px 10px; }
+  .meta b { color: var(--text-2); font-weight: 600; }
+  .meta a { color: var(--text-3); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+  .meta a:hover { color: var(--text); border-color: var(--text-3); }
+
+  /* ------------------------------------------------------------------ buttons */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px; width: 100%; padding: 13px 16px; border-radius: 12px;
+    border: 1px solid transparent; font-size: 15px; font-weight: 600; cursor: pointer; user-select: none; -webkit-user-select: none;
+    transition: background .15s var(--ease), border-color .15s var(--ease), transform .12s var(--ease), opacity .15s;
+  }
+  .btn:active { transform: scale(.985); }
+  .btn:disabled { opacity: .45; pointer-events: none; }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); }
+  .btn.primary:hover { filter: brightness(1.06); }
+  .btn.outline { background: var(--surface); border-color: var(--line-strong); color: var(--text); }
+  .btn.outline:hover { background: var(--surface-2); }
+  .btn.quiet { background: transparent; color: var(--text-2); border-color: transparent; padding: 10px; font-weight: 500; font-size: 14px; }
+  .btn.quiet:hover { background: var(--surface-2); }
+  .btn + .btn { margin-top: 8px; }
+  .btn.sm { width: auto; padding: 8px 12px; font-size: 13.5px; border-radius: 10px; }
+
+  /* ------------------------------------------------------------------ send */
+  .drop { border: 1.5px dashed transparent; border-radius: 14px; padding: 14px 4px 10px; text-align: center; transition: border-color .2s var(--ease), background .2s var(--ease), padding .2s var(--ease); }
+  .drop .art { width: 52px; height: 52px; margin: 0 auto 10px; border-radius: 14px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; }
+  .drop .art svg { width: 26px; height: 26px; }
+  .drop h2 { font-size: 16px; margin: 0 0 2px; font-weight: 650; letter-spacing: -.01em; }
+  .drop p { margin: 0 0 14px; font-size: 13px; color: var(--text-3); }
+  .drop .actions { max-width: 340px; margin: 0 auto; }
+  body.dragging .drop { border-color: var(--accent); background: var(--accent-soft); padding: 22px 16px 18px; }
+  .field { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 4px 4px 0; }
+  .field label { font-size: 13px; color: var(--text-3); white-space: nowrap; }
+  .field input { flex: 1; min-width: 0; padding: 9px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text); font-size: 14px; transition: border-color .15s; }
+  .field input:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+  .note { font-size: 12.5px; color: var(--text-3); margin-top: 10px; padding: 0 4px; line-height: 1.45; }
+  .note.tip { display: none; background: var(--surface-2); border-radius: 10px; padding: 10px 12px; margin-top: 12px; }
+  body.ios .note.tip { display: block; }
+
+  /* progress */
+  .prog .head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .prog .head b { font-size: 15px; font-weight: 650; }
+  .prog .pct { font-size: 22px; font-weight: 650; letter-spacing: -.02em; }
+  .bar { height: 6px; background: var(--surface-2); border-radius: 99px; overflow: hidden; margin: 12px 0 10px; }
+  .bar > div { height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .2s linear; }
+  .prog.done .bar > div { background: var(--ok); }
+  .prog.err .bar > div { background: var(--warn); }
+  .prog .row { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--text-3); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .chip { font-size: 12.5px; font-weight: 600; padding: 4px 9px; border-radius: 999px; background: var(--surface-2); color: var(--text-2); }
+  .chip.ok { background: var(--ok-soft); color: var(--ok); } .chip.warn { background: var(--warn-soft); color: var(--warn); } .chip.err { background: var(--err-soft); color: var(--err); }
+  #current { font-size: 12.5px; color: var(--text-3); margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #failList { font-size: 12.5px; color: var(--warn); margin-top: 8px; max-height: 96px; overflow: auto; }
+  .prog .foot { display: flex; gap: 8px; margin-top: 12px; }
+  .prog .foot .btn { margin: 0; }
+
+  /* lists */
+  details summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-weight: 600; font-size: 14px; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary .chev { transition: transform .2s var(--ease); color: var(--text-3); }
+  details[open] summary .chev { transform: rotate(90deg); }
+  .list { list-style: none; margin: 8px 0 0; padding: 0; }
+  .list li { display: flex; align-items: center; gap: 12px; padding: 10px 2px; border-top: 1px solid var(--line); min-height: 52px; }
+  .list li:first-child { border-top: 0; }
+  .list .ic { width: 36px; height: 36px; border-radius: 10px; background: var(--surface-2); color: var(--text-2); display: grid; place-items: center; flex: none; }
+  .list .ic.img { background: var(--accent-soft); color: var(--accent); }
+  .list .ic.vid { background: var(--warn-soft); color: var(--warn); }
+  .list .ic.dir { background: var(--ok-soft); color: var(--ok); }
+  .list .tx { flex: 1; min-width: 0; }
+  .list .nm { font-size: 14px; font-weight: 550; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .list .sub { font-size: 12.5px; color: var(--text-3); }
+  .list .cb { width: 22px; height: 22px; border-radius: 7px; border: 1.5px solid var(--line-strong); display: grid; place-items: center; color: transparent; flex: none; transition: background .15s, border-color .15s, color .15s; }
+  .list li.sel .cb { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .list li.sel { background: linear-gradient(90deg, var(--accent-soft), transparent 70%); border-radius: 10px; }
+  .list li.row-btn { cursor: pointer; }
+  .list li.row-btn:active { background: var(--surface-2); border-radius: 10px; }
+  .list .chev { color: var(--text-3); }
+
+  /* receive */
+  .crumbs { display: flex; align-items: center; gap: 6px; font-size: 13.5px; color: var(--text-3); margin-bottom: 8px; padding: 0 2px; flex-wrap: wrap; }
+  .crumbs button { border: 0; background: transparent; padding: 4px 6px; border-radius: 6px; color: var(--text-2); cursor: pointer; font-weight: 600; }
+  .crumbs button:hover { background: var(--surface-2); }
+  .crumbs .sep { opacity: .6; }
+  .toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .toolbar .grow { flex: 1; }
+  .empty { text-align: center; padding: 26px 12px 20px; color: var(--text-3); }
+  .empty svg { width: 64px; height: 64px; stroke: var(--line-strong); margin-bottom: 8px; }
+  .empty b { display: block; color: var(--text-2); font-weight: 600; margin-bottom: 4px; }
+  .empty code { background: var(--surface-2); padding: 2px 6px; border-radius: 6px; font-size: 12.5px; }
+  .actionbar { position: sticky; bottom: max(12px, env(safe-area-inset-bottom)); display: flex; gap: 8px; padding: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); margin-top: 10px; animation: rise .25s var(--ease) both; }
+  .actionbar .btn { margin: 0; }
+  .actionbar .count { display: flex; align-items: center; padding: 0 6px; font-size: 13px; color: var(--text-2); font-weight: 600; white-space: nowrap; }
+
+  /* token sheet */
+  .sheet { border-left: 3px solid var(--accent); }
+  .sheet h3 { margin: 0 0 4px; font-size: 15px; font-weight: 650; }
+  .sheet p { margin: 0 0 10px; font-size: 13px; color: var(--text-3); }
+  .sheet input { width: 100%; padding: 11px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text); font-size: 15px; }
+  .sheet input:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+  .sheet .btn { margin-top: 10px; }
+
+  /* toast */
+  #toast { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(20px); opacity: 0; background: var(--text); color: var(--bg); padding: 10px 14px; border-radius: 10px; font-size: 13.5px; font-weight: 500; box-shadow: var(--shadow); transition: opacity .2s var(--ease), transform .25s var(--ease); pointer-events: none; max-width: 90vw; text-align: center; }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  footer { text-align: center; font-size: 12px; color: var(--text-3); margin-top: 18px; }
+  footer a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 16V5M7 10l5-5 5 5"/><path d="M4 17v1.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V17"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M4 17v1.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V17"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M6 11H5.5A1.5 1.5 0 0 0 4 12.5v6A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5v-6a1.5 1.5 0 0 0-1.5-1.5H18"/></symbol>
+  <symbol id="i-photo" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M20.5 15.5 15.8 11l-6 6.5"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><rect x="3.5" y="6" width="13" height="12" rx="2.5"/><path d="m16.5 10 4-2v8l-4-2"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3.5H7.5A1.5 1.5 0 0 0 6 5v14a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 18 19V7.5z"/><path d="M14 3.5V7a1 1 0 0 0 1 1h3"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.5 7.5A1.5 1.5 0 0 1 5 6h4l2 2h8a1.5 1.5 0 0 1 1.5 1.5V18A1.5 1.5 0 0 1 19 19.5H5A1.5 1.5 0 0 1 3.5 18z"/></symbol>
+  <symbol id="i-any" viewBox="0 0 24 24"><path d="M4 7.5A1.5 1.5 0 0 1 5.5 6h4l2 2h7A1.5 1.5 0 0 1 20 9.5V17a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17z"/><path d="M12 11v5M9.5 13.5h5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4.5h-4.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 64 64"><path d="M10 34v14a4 4 0 0 0 4 4h36a4 4 0 0 0 4-4V34"/><path d="M10 34l6-16h32l6 16"/><path d="M10 34h14l3 5h10l3-5h14"/><path d="M32 8v14M26 16l6 6 6-6"/></symbol>
+</svg>
+
+<main>
+  <header>
+    <img class="logo" src="icon-192.png" alt="">
+    <div class="brand"><h1>Yolla</h1><div data-i18n="tagline"></div></div>
+    <div class="tools">
+      <div class="lang"><button data-lang="en">EN</button><button data-lang="tr">TR</button></div>
+      <button class="icon-btn" id="themeBtn" aria-label="Theme"><svg class="i"><use id="themeIcon" href="#i-moon"/></svg></button>
+    </div>
+  </header>
+
+  <div class="card sheet hidden" id="tokenCard">
+    <h3 data-i18n="tokenTitle"></h3>
+    <p data-i18n="tokenHint"></p>
+    <input type="password" id="token" placeholder="UPLOAD_TOKEN" autocomplete="current-password" aria-label="token">
+    <button class="btn primary" id="saveToken" data-i18n="save"></button>
+  </div>
+
+  <nav class="tabs" id="tabs" data-tab="send">
+    <div class="ind"></div>
+    <button id="tabSend" class="on"><svg class="i"><use href="#i-up"/></svg><span data-i18n="send"></span></button>
+    <button id="tabReceive"><svg class="i"><use href="#i-down"/></svg><span data-i18n="receive"></span></button>
+  </nav>
+
+  <!-- ============================================================ SEND -->
+  <section class="panel" id="panelSend">
+    <div class="meta"><span><span data-i18n="inFolder"></span> <b id="stats" class="num">…</b></span><a href="#" id="changeToken" class="hidden" data-i18n="changeToken"></a></div>
+
+    <div class="card prog hidden" id="progressCard" aria-live="polite">
+      <div class="head"><b id="pTitle"></b><span class="pct num" id="pPct">0%</span></div>
+      <div class="bar"><div id="pBar"></div></div>
+      <div class="row num"><span id="pCount"></span><span id="pBytes"></span></div>
+      <div class="row num"><span id="pSpeed"></span><span id="pEta"></span></div>
+      <div class="chips"><span class="chip ok" id="pDone"></span><span class="chip warn hidden" id="pSkip"></span><span class="chip err hidden" id="pFail"></span></div>
+      <div id="current"></div>
+      <div id="failList"></div>
+      <div class="note tip hidden" id="vidNote" style="display:block"></div>
+      <div class="foot">
+        <button class="btn outline sm" id="cancel" data-i18n="cancel"></button>
+        <button class="btn primary sm hidden" id="retry" data-i18n="retry"></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="drop" id="drop">
+        <div class="art"><svg class="i"><use href="#i-up"/></svg></div>
+        <h2 data-i18n="dropTitle"></h2>
+        <p data-i18n="dropHint"></p>
+        <div class="actions">
+          <input type="file" id="pickMedia" multiple accept="image/*,video/*" class="hidden" aria-hidden="true" tabindex="-1">
+          <input type="file" id="pickAny" multiple class="hidden" aria-hidden="true" tabindex="-1">
+          <button class="btn primary" id="btnMedia"><svg class="i"><use href="#i-photo"/></svg><span data-i18n="pickMedia"></span></button>
+          <button class="btn outline" id="btnAny"><svg class="i"><use href="#i-any"/></svg><span data-i18n="pickAny"></span></button>
+        </div>
+      </div>
+      <div class="field"><label for="album" data-i18n="album"></label><input type="text" id="album" data-i18n-ph="albumPh" autocapitalize="off" autocorrect="off" spellcheck="false"></div>
+      <div class="note tip" data-i18n="iosNote"></div>
+      <div class="note" data-i18n="keepOpen"></div>
+    </div>
+
+    <div class="card">
+      <details id="recentBox"><summary><span data-i18n="recent"></span><svg class="i chev"><use href="#i-chev"/></svg></summary><ul class="list" id="recent"></ul></details>
+    </div>
+  </section>
+
+  <!-- ============================================================ RECEIVE -->
+  <section class="panel hidden" id="panelReceive">
+    <div class="meta"><span data-i18n="outboxMeta"></span><a href="#" id="obRefresh"><span data-i18n="refresh"></span></a></div>
+    <div class="card">
+      <div class="crumbs" id="crumbs"></div>
+      <div class="toolbar">
+        <button class="btn quiet sm" id="obSelectAll" data-i18n="selectAll"></button>
+        <span class="grow"></span>
+        <span id="obCount" class="num" style="font-size:13px;color:var(--text-3)"></span>
+      </div>
+      <ul class="list" id="obList"></ul>
+      <div class="empty hidden" id="obEmpty">
+        <svg viewBox="0 0 64 64" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><use href="#i-inbox"/></svg>
+        <b data-i18n="emptyTitle"></b>
+        <span id="emptyText"></span>
+      </div>
+    </div>
+    <div class="actionbar hidden" id="actionbar">
+      <span class="count num" id="selCount"></span>
+      <span class="grow" style="flex:1"></span>
+      <button class="btn outline sm hidden" id="btnPreview"><svg class="i"><use href="#i-eye"/></svg><span data-i18n="preview"></span></button>
+      <button class="btn outline sm" id="btnDownload"><svg class="i"><use href="#i-down"/></svg><span data-i18n="download"></span></button>
+      <button class="btn primary sm hidden" id="btnShare"><svg class="i"><use href="#i-share"/></svg><span data-i18n="save"></span></button>
+    </div>
+  </section>
+
+  <footer>Yolla <span id="ver"></span> · <a href="https://github.com/TekyaygilFethi/yolla" target="_blank" rel="noopener">GitHub</a></footer>
+</main>
+<div id="toast" role="status"></div>
+
+<script>
+// ------------------------------------------------------------------ i18n
+const I18N = {
+  en: {
+    tagline: 'Phone ↔ computer', send: 'Send', receive: 'Receive', inFolder: 'Folder:', files: 'files',
+    tokenTitle: 'Access token', tokenHint: 'The token set on the computer (UPLOAD_TOKEN). Save it empty to forget it on this device.', save: 'Save',
+    changeToken: 'change token',
+    dropTitle: 'Send to your computer', dropHint: 'Pick from your library, or drop files here on desktop.',
+    pickMedia: 'Photos & Videos', pickAny: 'Any file', album: 'Subfolder', albumPh: 'optional, e.g. Holiday2026',
+    iosNote: 'iOS: videos picked from Photos are re-compressed by Safari. For full-quality originals use "Any file" and pick from the Files app.',
+    keepOpen: 'Keep this page open until the upload finishes.',
+    uploading: 'Uploading', doneOk: 'Done', doneErr: 'Finished with errors', cancelled: 'Cancelled',
+    uploaded: 'uploaded', skipped: 'already there', failed: 'failed', retry: 'Retry failed', cancel: 'Cancel',
+    recent: 'Recent uploads', left: 'left', resumed: 'resuming', noServer: "Can't reach the server", needToken: 'token required', wrongToken: 'wrong token',
+    failedList: 'Failed: ', empty: 'Nothing yet.',
+    vidNote: 'These videos were re-compressed by iOS before upload. For the untouched originals, save them to Files first and use Any file.',
+    outboxMeta: 'Files your computer put in the Outbox', refresh: 'refresh', selectAll: 'Select all', clearSel: 'Clear',
+    emptyTitle: 'Outbox is empty', emptyText: 'On the computer, put files into the {path} folder and they appear here.',
+    download: 'Download', preview: 'Open', saveTo: 'Save to Photos', shareBtn: 'Share',
+    selected: 'selected', folder: 'Folder', tapAgain: 'Ready — tap Save again', tooBig: 'Too large to share at once; use Download.', fetching: 'Preparing…',
+    files_n: 'items',
+  },
+  tr: {
+    tagline: 'Telefon ↔ bilgisayar', send: 'Gönder', receive: 'Al', inFolder: 'Klasör:', files: 'dosya',
+    tokenTitle: 'Erişim şifresi', tokenHint: 'Bilgisayarda ayarlanan şifre (UPLOAD_TOKEN). Boş kaydedersen bu cihazdan silinir.', save: 'Kaydet',
+    changeToken: 'şifreyi değiştir',
+    dropTitle: 'Bilgisayarına gönder', dropHint: 'Galeriden seç ya da masaüstünde dosyaları buraya bırak.',
+    pickMedia: 'Fotoğraf & Video', pickAny: 'Herhangi bir dosya', album: 'Alt klasör', albumPh: 'isteğe bağlı, örn. Tatil2026',
+    iosNote: 'iOS: Fotoğraflar’dan seçilen videoları Safari yeniden sıkıştırır. Orijinal kalite için "Herhangi bir dosya" ile Dosyalar’dan seç.',
+    keepOpen: 'Yükleme bitene kadar bu sayfayı kapatma.',
+    uploading: 'Yükleniyor', doneOk: 'Tamamlandı', doneErr: 'Hatalarla bitti', cancelled: 'İptal edildi',
+    uploaded: 'yüklendi', skipped: 'zaten vardı', failed: 'hata', retry: 'Hatalıları tekrar dene', cancel: 'İptal',
+    recent: 'Son yüklenenler', left: 'kaldı', resumed: 'devam', noServer: 'Sunucuya ulaşılamıyor', needToken: 'şifre gerekli', wrongToken: 'şifre yanlış',
+    failedList: 'Hatalı: ', empty: 'Henüz yok.',
+    vidNote: 'Bu videoları iOS yüklemeden önce yeniden sıkıştırdı. Orijinalleri için önce Dosyalar’a kaydet, sonra Herhangi bir dosya ile seç.',
+    outboxMeta: 'Bilgisayarın Giden Kutusu’na koyduğu dosyalar', refresh: 'yenile', selectAll: 'Tümünü seç', clearSel: 'Temizle',
+    emptyTitle: 'Giden kutusu boş', emptyText: 'Bilgisayarda dosyaları {path} klasörüne koy, burada görünsün.',
+    download: 'İndir', preview: 'Aç', saveTo: 'Fotoğraflara Kaydet', shareBtn: 'Paylaş',
+    selected: 'seçili', folder: 'Klasör', tapAgain: 'Hazır — Kaydet’e tekrar bas', tooBig: 'Tek seferde paylaşmak için çok büyük; İndir’i kullan.', fetching: 'Hazırlanıyor…',
+    files_n: 'öğe',
+  }
+};
+let lang = localStorage.getItem('yolla_lang') || ((navigator.language || 'en').toLowerCase().startsWith('tr') ? 'tr' : 'en');
+const t = k => (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k;
+function applyLang() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(e => e.textContent = t(e.dataset.i18n));
+  document.querySelectorAll('[data-i18n-ph]').forEach(e => e.placeholder = t(e.dataset.i18nPh));
+  document.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
+  $('#btnShare span').textContent = isIOS ? t('saveTo') : t('shareBtn');
+  render(); renderRecent(lastRecent); renderOutbox();
+}
+document.querySelectorAll('[data-lang]').forEach(b => b.onclick = () => { lang = b.dataset.lang; localStorage.setItem('yolla_lang', lang); applyLang(); });
+
+// ------------------------------------------------------------------ theme
+const $ = s => document.querySelector(s);
+const mq = matchMedia('(prefers-color-scheme: dark)');
+function theme() { return localStorage.getItem('yolla_theme') || (mq.matches ? 'dark' : 'light'); }
+function applyTheme() {
+  const th = theme();
+  document.documentElement.dataset.theme = th;
+  $('#themeIcon').setAttribute('href', th === 'dark' ? '#i-sun' : '#i-moon');
+  $('#themeColor').content = th === 'dark' ? '#0e0f11' : '#f6f6f4';
+}
+$('#themeBtn').onclick = () => { localStorage.setItem('yolla_theme', theme() === 'dark' ? 'light' : 'dark'); applyTheme(); };
+mq.addEventListener?.('change', () => { if (!localStorage.getItem('yolla_theme')) applyTheme(); });
+applyTheme();
+
+// ------------------------------------------------------------------ state & helpers
+const PARALLEL = 3, MAX_FAILS = 5;
+const CFG = { chunk: 32 * 1024 * 1024, tokenRequired: false, outbox: false, outboxPath: 'Outbox' };
+let token = localStorage.getItem('yolla_token') || '';
+const st = { files: [], done: 0, skipped: 0, failed: [], total: 0, prog: new Map(), running: false, samples: [], source: '' };
+const active = new Set();
+let wakeLock = null, lastRecent = [], raf = 0, toastTimer = 0;
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+if (isIOS) document.body.classList.add('ios');
+const canShareFiles = !!(navigator.canShare && navigator.canShare({ files: [new File(['x'], 'x.jpg', { type: 'image/jpeg' })] }));
+
+const album = () => $('#album').value.trim();
+const fmt = b => b < 1e6 ? (b / 1e3).toFixed(0) + ' KB' : b < 1e9 ? (b / 1e6).toFixed(1) + ' MB' : (b / 1e9).toFixed(2) + ' GB';
+const hdrs = () => ({ 'ngrok-skip-browser-warning': '1', ...(token ? { 'X-Upload-Token': token } : {}) });
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const esc = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+class AuthError extends Error {} class CancelError extends Error {}
+function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 2600); }
+function setCookie() {
+  // Lets download links authenticate without a token in the URL. SameSite=Strict: never sent cross-site.
+  const secure = location.protocol === 'https:' ? '; Secure' : '';
+  document.cookie = token ? `yolla_token=${encodeURIComponent(token)}; path=/; max-age=31536000; SameSite=Strict${secure}` : `yolla_token=; path=/; max-age=0; SameSite=Strict${secure}`;
+}
+function cyrb53(str, seed = 0) {
+  let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+  for (let i = 0, ch; i < str.length; i++) { ch = str.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507); h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507); h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (h2 >>> 0).toString(16).padStart(8, '0') + (h1 >>> 0).toString(16).padStart(8, '0');
+}
+const kind = n => /\.(jpe?g|png|gif|heic|heif|webp|bmp|tiff?|dng|avif)$/i.test(n) ? 'img' : /\.(mp4|mov|m4v|webm|mkv|avi|hevc|3gp)$/i.test(n) ? 'vid' : /\.(pdf|txt|md|json|csv)$/i.test(n) ? 'doc' : 'file';
+
+// ------------------------------------------------------------------ api
+async function api(path) {
+  const r = await fetch(path, { headers: hdrs(), cache: 'no-store' });
+  if (r.status === 401 || r.status === 429) throw new AuthError();
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json();
+}
+async function loadConfig() {
+  try {
+    const j = await api('api/config');
+    CFG.chunk = j.chunkBytes || CFG.chunk; CFG.tokenRequired = !!j.tokenRequired; CFG.outbox = !!j.outbox; CFG.outboxPath = j.outboxPath || 'Outbox';
+    $('#ver').textContent = 'v' + j.version;
+    $('#changeToken').classList.toggle('hidden', !CFG.tokenRequired);
+    $('#tabs').classList.toggle('single', !CFG.outbox); $('#tabReceive').classList.toggle('hidden', !CFG.outbox);
+    if (CFG.tokenRequired && !token) showToken(t('needToken'));
+  } catch { $('#stats').textContent = t('noServer'); }
+}
+async function loadStats() {
+  try {
+    const j = await api('api/stats?album=' + encodeURIComponent(album()));
+    $('#stats').textContent = `${j.count} ${t('files')} · ${fmt(j.bytes)}`;
+    $('#tokenCard').classList.add('hidden');
+    loadRecent();
+  } catch (e) {
+    if (e instanceof AuthError) showToken(token ? t('wrongToken') : t('needToken'));
+    else $('#stats').textContent = t('noServer');
+  }
+}
+async function loadRecent() { try { lastRecent = await api('api/recent?n=12&album=' + encodeURIComponent(album())); renderRecent(lastRecent); } catch {} }
+function renderRecent(items) {
+  const ul = $('#recent'); ul.innerHTML = '';
+  if (!items || !items.length) { ul.innerHTML = `<li><span class="sub">${t('empty')}</span></li>`; return; }
+  for (const f of items) {
+    const k = kind(f.name);
+    ul.insertAdjacentHTML('beforeend', `<li><span class="ic ${k === 'doc' ? 'file' : k}"><svg class="i"><use href="#${k === 'img' ? 'i-photo' : k === 'vid' ? 'i-video' : 'i-file'}"/></svg></span><span class="tx"><div class="nm">${esc(f.name)}</div><div class="sub num">${fmt(f.bytes)} · ${new Date(f.modified).toLocaleString(lang, { dateStyle: 'medium', timeStyle: 'short' })}</div></span></li>`);
+  }
+}
+function showToken(msg) { $('#stats').textContent = msg || t('needToken'); $('#tokenCard').classList.remove('hidden'); $('#tokenCard').classList.add('enter'); }
+
+// ------------------------------------------------------------------ tabs
+function switchTab(which) {
+  $('#tabs').dataset.tab = which;
+  $('#tabSend').classList.toggle('on', which === 'send'); $('#tabReceive').classList.toggle('on', which === 'receive');
+  $('#panelSend').classList.toggle('hidden', which !== 'send'); $('#panelReceive').classList.toggle('hidden', which !== 'receive');
+  const p = which === 'send' ? $('#panelSend') : $('#panelReceive'); p.style.animation = 'none'; void p.offsetWidth; p.style.animation = '';
+  if (which === 'receive') loadOutbox(ob.path);
+  localStorage.setItem('yolla_tab', which);
+}
+$('#tabSend').onclick = () => switchTab('send'); $('#tabReceive').onclick = () => switchTab('receive');
+
+// ------------------------------------------------------------------ upload (Send)
+function putChunk(file, id, offset, end, onProgress) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    const q = new URLSearchParams({ name: file.name, size: file.size, offset, id, mtime: file.lastModified || 0, album: album() });
+    xhr.open('PUT', 'api/upload?' + q);
+    for (const [k, v] of Object.entries(hdrs())) xhr.setRequestHeader(k, v);
+    xhr.timeout = 0;
+    xhr.upload.onprogress = e => onProgress(e.loaded);
+    const finish = () => active.delete(xhr);
+    xhr.onload = () => {
+      finish(); let j = null; try { j = JSON.parse(xhr.responseText); } catch {}
+      if (xhr.status === 401 || xhr.status === 429) reject(new AuthError());
+      else if (xhr.status === 409) resolve({ conflict: true, received: j?.received ?? 0 });
+      else if (xhr.status === 413) reject(Object.assign(new Error(j?.error || 'too large'), { fatal: true }));
+      else if (xhr.status >= 200 && xhr.status < 300) resolve(j || {});
+      else reject(new Error('HTTP ' + xhr.status));
+    };
+    xhr.onerror = () => { finish(); reject(new Error('network')); };
+    xhr.onabort = () => { finish(); reject(new CancelError()); };
+    active.add(xhr);
+    xhr.send(end > offset ? file.slice(offset, end) : new Blob([]));
+  });
+}
+async function processOne(file) {
+  const id = cyrb53(`${file.name}|${file.size}|${file.lastModified}|${album()}`);
+  let offset = null, fails = 0;
+  while (true) {
+    if (!st.running) { st.failed.push(file); return; }
+    try {
+      if (offset === null) {
+        const q = new URLSearchParams({ name: file.name, size: file.size, mtime: file.lastModified || 0, album: album(), id });
+        const ex = await api('api/exists?' + q);
+        if (ex.exists) { st.skipped++; setProg(file, file.size); return; }
+        offset = ex.partial || 0;
+        $('#current').textContent = file.name + (offset ? ` · ${t('resumed')} ${fmt(offset)}` : '');
+      }
+      const end = Math.min(offset + CFG.chunk, file.size), base = offset;
+      const r = await putChunk(file, id, offset, end, loaded => setProg(file, base + loaded));
+      if (r.conflict) { offset = r.received; setProg(file, offset); continue; }
+      offset = r.received; setProg(file, offset); fails = 0;
+      if (r.done) { st.done++; setProg(file, file.size); return; }
+    } catch (e) {
+      if (e instanceof AuthError) { st.running = false; st.failed.push(file); showToken(t('wrongToken')); return; }
+      if (e instanceof CancelError || !st.running) { st.failed.push(file); return; }
+      if (e.fatal || ++fails >= MAX_FAILS) { st.failed.push(file); setProg(file, 0); if (e.fatal) toast(e.message); return; }
+      $('#current').textContent = `${file.name} — ${e.message} (${fails})`;
+      await sleep(Math.min(15000, 1000 * 2 ** (fails - 1)));
+      offset = null;
+    }
+  }
+}
+async function run(files, source = 'any') {
+  files = files.filter(f => f && f.size >= 0);
+  if (!files.length || st.running) return;
+  switchTab('send');
+  Object.assign(st, { files, done: 0, skipped: 0, failed: [], prog: new Map(), running: true, samples: [], source });
+  $('#vidNote').classList.add('hidden');
+  st.total = files.reduce((a, f) => a + f.size, 0);
+  const card = $('#progressCard'); card.classList.remove('hidden', 'done', 'err'); card.classList.add('enter'); $('#progressCard .foot').classList.remove('hidden');
+  $('#retry').classList.add('hidden'); $('#cancel').classList.remove('hidden'); $('#failList').textContent = ''; $('#pTitle').textContent = t('uploading');
+  $('#btnMedia').disabled = $('#btnAny').disabled = true;
+  try { wakeLock = await navigator.wakeLock?.request('screen'); } catch {}
+  render();
+  let i = 0;
+  const worker = async () => { while (i < files.length && st.running) await processOne(files[i++]); };
+  await Promise.all(Array.from({ length: PARALLEL }, worker));
+  while (i < files.length) st.failed.push(files[i++]);
+  const cancelled = !st.running; st.running = false;
+  $('#btnMedia').disabled = $('#btnAny').disabled = false; $('#cancel').classList.add('hidden');
+  try { await wakeLock?.release(); } catch {}
+  $('#pTitle').textContent = cancelled ? t('cancelled') : st.failed.length ? t('doneErr') : t('doneOk');
+  $('#progressCard .foot').classList.toggle('hidden', !st.failed.length);
+  card.classList.add(st.failed.length ? 'err' : 'done');
+  $('#current').textContent = '';
+  if (st.failed.length) { $('#retry').classList.remove('hidden'); $('#failList').textContent = t('failedList') + st.failed.map(f => f.name).join(', '); }
+  if (isIOS && st.source === 'media' && st.done && files.some(f => kind(f.name) === 'vid' || (f.type || '').startsWith('video/'))) { $('#vidNote').textContent = t('vidNote'); $('#vidNote').classList.remove('hidden'); }
+  render(); loadStats();
+}
+function setProg(file, bytes) { st.prog.set(file, Math.min(bytes, file.size)); if (!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); }
+function render() {
+  if (!st.files.length) return;
+  let sent = 0; for (const v of st.prog.values()) sent += v;
+  const pct = st.total ? Math.min(100, Math.floor(sent / st.total * 100)) : (st.done + st.skipped ? 100 : 0);
+  $('#pBar').style.width = pct + '%'; $('#pPct').textContent = pct + '%';
+  $('#pCount').textContent = `${st.done + st.skipped + st.failed.length} / ${st.files.length} ${t('files')}`;
+  $('#pBytes').textContent = `${fmt(sent)} / ${fmt(st.total)}`;
+  $('#pDone').textContent = `${st.done} ${t('uploaded')}`; $('#pDone').classList.toggle('hidden', !st.done && (st.skipped || st.failed.length));
+  $('#pSkip').textContent = `${st.skipped} ${t('skipped')}`; $('#pSkip').classList.toggle('hidden', !st.skipped);
+  $('#pFail').textContent = `${st.failed.length} ${t('failed')}`; $('#pFail').classList.toggle('hidden', !st.failed.length);
+  const now = performance.now(); st.samples.push([now, sent]);
+  while (st.samples.length > 2 && now - st.samples[0][0] > 6000) st.samples.shift();
+  const [t0, s0] = st.samples[0]; const dt = (now - t0) / 1000;
+  if (st.running && dt > 0.5) {
+    const bps = (sent - s0) / dt;
+    $('#pSpeed').textContent = (bps / 1e6).toFixed(1) + ' MB/s';
+    $('#pEta').textContent = bps > 0 ? Math.max(0, Math.round((st.total - sent) / bps)) + ' s ' + t('left') : '';
+  } else if (!st.running) { $('#pSpeed').textContent = ''; $('#pEta').textContent = ''; }
+}
+
+// ------------------------------------------------------------------ Outbox (Receive)
+const ob = { path: localStorage.getItem('yolla_obpath') || '', items: [], sel: new Set(), cache: new Map() };
+async function loadOutbox(path) {
+  if (!CFG.outbox) return;
+  try {
+    const j = await api('api/outbox?path=' + encodeURIComponent(path || ''));
+    ob.path = j.path || ''; ob.items = j.items || []; ob.sel.clear(); localStorage.setItem('yolla_obpath', ob.path);
+    renderOutbox();
+  } catch (e) {
+    if (e instanceof AuthError) { showToken(t('wrongToken')); return; }
+    if (path) return loadOutbox('');   // folder vanished -> back to root
+    ob.items = []; renderOutbox(); toast(t('noServer'));
+  }
+}
+function renderOutbox() {
+  if (!CFG.outbox) return;
+  const crumbs = $('#crumbs'); crumbs.innerHTML = '';
+  const parts = ob.path ? ob.path.split('/') : [];
+  const rootBtn = document.createElement('button'); rootBtn.textContent = CFG.outboxPath.split(/[\\/]/).pop() || 'Outbox'; rootBtn.onclick = () => loadOutbox('');
+  crumbs.append(rootBtn);
+  parts.forEach((seg, i) => { const s = document.createElement('span'); s.className = 'sep'; s.textContent = '/'; const b = document.createElement('button'); b.textContent = seg; b.onclick = () => loadOutbox(parts.slice(0, i + 1).join('/')); crumbs.append(s, b); });
+  const ul = $('#obList'); ul.innerHTML = '';
+  const files = ob.items.filter(x => !x.dir);
+  $('#obEmpty').classList.toggle('hidden', ob.items.length > 0);
+  $('#emptyText').textContent = t('emptyText').replace('{path}', CFG.outboxPath);
+  $('#obCount').textContent = ob.items.length ? `${ob.items.length} ${t('files_n')}` : '';
+  $('#obSelectAll').classList.toggle('hidden', files.length === 0);
+  $('#obSelectAll').textContent = ob.sel.size && ob.sel.size === files.length ? t('clearSel') : t('selectAll');
+  for (const it of ob.items) {
+    const li = document.createElement('li'); li.className = 'row-btn' + (ob.sel.has(it.name) ? ' sel' : '');
+    const k = it.dir ? 'dir' : kind(it.name);
+    const icon = it.dir ? 'i-folder' : k === 'img' ? 'i-photo' : k === 'vid' ? 'i-video' : 'i-file';
+    const cls = k === 'doc' ? 'file' : k;
+    li.innerHTML = it.dir
+      ? `<span class="ic dir"><svg class="i"><use href="#${icon}"/></svg></span><span class="tx"><div class="nm">${esc(it.name)}</div><div class="sub">${t('folder')}</div></span><svg class="i chev"><use href="#i-chev"/></svg>`
+      : `<span class="cb"><svg class="i" style="width:15px;height:15px;stroke-width:2.6"><use href="#i-check"/></svg></span><span class="ic ${cls}"><svg class="i"><use href="#${icon}"/></svg></span><span class="tx"><div class="nm">${esc(it.name)}</div><div class="sub num">${fmt(it.bytes)} · ${new Date(it.modified).toLocaleDateString(lang, { dateStyle: 'medium' })}</div></span>`;
+    li.onclick = () => { if (it.dir) loadOutbox(ob.path ? ob.path + '/' + it.name : it.name); else { ob.sel.has(it.name) ? ob.sel.delete(it.name) : ob.sel.add(it.name); renderOutbox(); } };
+    ul.append(li);
+  }
+  // action bar
+  const n = ob.sel.size, bar = $('#actionbar');
+  bar.classList.toggle('hidden', n === 0);
+  $('#selCount').textContent = `${n} ${t('selected')}`;
+  const one = n === 1 ? ob.items.find(x => x.name === [...ob.sel][0]) : null;
+  $('#btnPreview').classList.toggle('hidden', !(one && kind(one.name) !== 'file'));   // images, videos, PDFs and text open in the browser
+  $('#btnShare').classList.toggle('hidden', !canShareFiles);
+  $('#btnShare span').textContent = isIOS ? t('saveTo') : t('shareBtn');
+}
+const rel = name => ob.path ? ob.path + '/' + name : name;
+$('#obRefresh').onclick = e => { e.preventDefault(); loadOutbox(ob.path); };
+$('#obSelectAll').onclick = () => { const files = ob.items.filter(x => !x.dir); if (ob.sel.size === files.length) ob.sel.clear(); else files.forEach(f => ob.sel.add(f.name)); renderOutbox(); };
+$('#btnPreview').onclick = () => { const name = [...ob.sel][0]; window.open('api/outbox/file?path=' + encodeURIComponent(rel(name)), '_blank'); };
+$('#btnDownload').onclick = () => {
+  const names = [...ob.sel]; if (!names.length) return;
+  const a = document.createElement('a');
+  a.href = names.length === 1 ? 'api/outbox/file?path=' + encodeURIComponent(rel(names[0])) + '&dl=true'
+                              : 'api/outbox/zip?' + names.map(nm => 'p=' + encodeURIComponent(rel(nm))).join('&');
+  a.download = ''; document.body.append(a); a.click(); a.remove();
+};
+$('#btnShare').onclick = async () => {
+  const names = [...ob.sel]; if (!names.length) return;
+  const items = names.map(nm => ob.items.find(x => x.name === nm)).filter(Boolean);
+  const total = items.reduce((a, x) => a + x.bytes, 0);
+  if (total > 700 * 1024 * 1024 || items.length > 30) { toast(t('tooBig')); return; }
+  const btn = $('#btnShare'), label = btn.querySelector('span'), old = label.textContent;
+  try {
+    const files = [];
+    let fetched = false;
+    for (const it of items) {
+      let f = ob.cache.get(rel(it.name));
+      if (!f) { fetched = true; label.textContent = t('fetching'); btn.disabled = true;
+        const r = await fetch('api/outbox/file?path=' + encodeURIComponent(rel(it.name)), { headers: hdrs() });
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const blob = await r.blob(); f = new File([blob], it.name, { type: blob.type || 'application/octet-stream' }); ob.cache.set(rel(it.name), f); }
+      files.push(f);
+    }
+    btn.disabled = false; label.textContent = old;
+    if (!navigator.canShare({ files })) { toast(t('tooBig')); return; }
+    await navigator.share({ files });
+  } catch (e) {
+    btn.disabled = false; label.textContent = old;
+    if (e && e.name === 'AbortError') return;                     // user closed the sheet
+    if (e && e.name === 'NotAllowedError') { toast(t('tapAgain')); return; }  // gesture expired while fetching; blobs are cached now
+    toast(e.message || String(e));
+  }
+};
+
+// ------------------------------------------------------------------ wiring
+$('#btnMedia').onclick = () => $('#pickMedia').click();
+$('#btnAny').onclick = () => $('#pickAny').click();
+$('#pickMedia').onchange = e => { const f = [...e.target.files]; e.target.value = ''; run(f, 'media'); };
+$('#pickAny').onchange = e => { const f = [...e.target.files]; e.target.value = ''; run(f, 'any'); };
+$('#retry').onclick = () => run(st.failed.slice(), st.source);
+$('#cancel').onclick = () => { st.running = false; for (const x of active) x.abort(); };
+$('#saveToken').onclick = () => { token = $('#token').value.trim(); if (token) localStorage.setItem('yolla_token', token); else localStorage.removeItem('yolla_token'); $('#token').value = ''; setCookie(); loadStats(); if ($('#tabs').dataset.tab === 'receive') loadOutbox(ob.path); };
+$('#token').onkeydown = e => { if (e.key === 'Enter') $('#saveToken').click(); };
+$('#changeToken').onclick = e => { e.preventDefault(); const c = $('#tokenCard'); c.classList.toggle('hidden'); if (!c.classList.contains('hidden')) { $('#token').value = ''; $('#token').focus(); } };
+$('#album').onchange = loadStats;
+$('#recentBox').ontoggle = () => { if ($('#recentBox').open) loadRecent(); };
+let dragDepth = 0;
+document.addEventListener('dragenter', e => { e.preventDefault(); if (++dragDepth === 1) document.body.classList.add('dragging'); });
+document.addEventListener('dragleave', e => { e.preventDefault(); if (--dragDepth <= 0) { dragDepth = 0; document.body.classList.remove('dragging'); } });
+document.addEventListener('dragover', e => e.preventDefault());
+document.addEventListener('drop', e => { e.preventDefault(); dragDepth = 0; document.body.classList.remove('dragging'); run([...e.dataTransfer.files]); });
+document.addEventListener('paste', e => { const f = [...(e.clipboardData?.files || [])]; if (f.length) run(f); });
+document.addEventListener('visibilitychange', async () => { if (document.visibilityState === 'visible' && st.running) { try { wakeLock = await navigator.wakeLock?.request('screen'); } catch {} } });
+window.addEventListener('beforeunload', e => { if (st.running) { e.preventDefault(); e.returnValue = ''; } });
+
+applyLang();
+setCookie();
+loadConfig().then(() => { loadStats(); const tab = localStorage.getItem('yolla_tab'); if (tab === 'receive' && CFG.outbox) switchTab('receive'); });
+</script>
+</body>
+</html>
