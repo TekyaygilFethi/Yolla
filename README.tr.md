@@ -11,13 +11,13 @@
 
 <p align="center"><img src="docs/demo.gif" width="300" alt="iPhone'da Yolla: 13 fotoğraf seç, PC'ye düşüşünü izle">&nbsp;&nbsp;<img src="docs/receive-dark.png" width="300" alt="Koyu temada Al sekmesi"></p>
 
-## Bu ne
+## Nedir?
 
 Yolla, dosya alan küçük bir web sayfası. Dosyaların gelmesini istediğin bilgisayarda çalıştırıyorsun (Windows PC, Mac, Linux, NAS, Raspberry Pi fark etmez), telefondan adresini açıyorsun, **Fotoğraf & Video**'ya basıp istediğin kadar seçiyorsun, dosyalar o bilgisayardaki sıradan bir klasöre düşüyor. Tersi de var: bilgisayarda Giden Kutusu klasörüne attığın dosyaları telefondan alıyorsun. Önüne bir tünel ya da kendi alan adını koyarsan sadece evde değil, her yerden çalışıyor.
 
 Bunu yazdım çünkü iPhone'daki birkaç yüz tatil fotoğrafını Windows'a atmak hâlâ eziyet. iCloud for Windows olmadık yerde bozuluyor, AirDrop sadece Apple'la konuşuyor, her aktarım uygulaması da iki cihaza da kurulmak ve aynı Wi‑Fi'da olmak istiyor. Ben tam tersini istedim: bir konteyner, bir sayfa, benim klasörüm. Projenin tamamı bağımlılıksız bir C# dosyası ve bir HTML dosyası; bir akşamda okuyup sonra unutabilirsin.
 
-## Neden Yolla
+## Neden Yolla?
 
 Dosya taşımanın bir sürü yolu var. Burada farklı olan şu:
 
