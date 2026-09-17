@@ -1,4 +1,4 @@
-<p align="center"><img src="src/Yolla/wwwroot/icon-192.png" width="88" alt=""></p>
+<p align="center"><img src="src/Yolla/wwwroot/icon.svg" width="88" height="88" alt="Yolla"></p>
 <h1 align="center">Yolla</h1>
 <p align="center">Lightweight file transfers on your own computer or server.<br>Open source. Browser access. Storage you control.</p>
 
