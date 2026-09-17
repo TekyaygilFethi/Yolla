@@ -27,7 +27,7 @@ Yolla, kapsamı bilinçli olarak dar tutulmuş küçük bir kişisel araçtır. 
 - **İki yönde aktarım yaparsınız.** Yolla adresine ulaşabilen ve erişim şifresiyle giriş yapabilen cihazlar dosya yükleyebilir, `Outbox` klasörüne koyduğunuz dosyaları indirebilir.
 - **Ev dışından da erişebilirsiniz.** Bir tünel veya kendi HTTPS reverse proxy'nizle dışarıdan erişimi yapılandırabilirsiniz. Sunucunun açık, disk alanının yeterli ve adresin gönderen cihazdan erişilebilir olması gerekir.
 - **Elinizdeki depolama alanını kullanırsınız.** Örneğin tatil fotoğraflarını ek bir bulut depolama aboneliği almadan kendi diskinize aktarabilirsiniz. Depolama, bağlantı ve varsa sunucu ya da tünel hizmetinin maliyeti seçtiğiniz kuruluma bağlıdır.
-- **Kurulum küçük kalır.** Uygulamanın işleyişi bir C# dosyası ile bir HTML dosyasında yer alır. Üçüncü taraf NuGet veya JavaScript paketi ve ayrı bir veritabanı gerektirmez. Belgelenen kurulum Docker kullanır; .NET 10 ile de çalıştırabilirsiniz. Web sayfasında üçüncü taraf betik veya analiz aracı bulunmaz.
+- **Kurulum küçük kalır.** Uygulamanın işleyişi bir C# dosyası ile bir HTML dosyasında yer alır. Üçüncü taraf NuGet veya JavaScript paketi ve ayrı bir veritabanı gerektirmez. Belgelenen kurulum Docker kullanır; .NET 10 ile de çalıştırabilirsiniz. Web sayfasında üçüncü taraf script veya analiz aracı bulunmaz.
 - **Kodu inceleyip değiştirebilirsiniz.** Yolla, MIT lisansıyla ücretsiz ve açık kaynak olarak sunulur. Kodu okuyabilir, kendi ihtiyacınıza göre uyarlayabilir veya katkıda bulunabilirsiniz.
 
 ## Hangi ihtiyaçlara uygun?
@@ -52,13 +52,13 @@ Aktarımları siz başlatırsınız. Otomatik arka plan yedeklemesi, senkronize 
 
 ### Önce karar verilecek üç şey
 
-Kurulum betiği Yolla ayarları için varsayılan değerleri kullanır. Docker eksikse kurulumu için onay isteyebilir. Bir ayarı sonradan değiştirmek isterseniz betiği yeniden çalıştırabilirsiniz. Yine de neleri ayarladığını bilmekte fayda var:
+Kurulum scripti Yolla ayarları için varsayılan değerleri kullanır. Docker eksikse kurulumu için onay isteyebilir. Bir ayarı sonradan değiştirmek isterseniz scripti yeniden çalıştırabilirsiniz. Yine de neleri ayarladığını bilmekte fayda var:
 
-1. **Klasör.** Yüklenen dosyaların bu bilgisayarda gideceği yer. Varsayılan olarak ev klasörünüzün içindeki `Pictures/Yolla`. Herhangi bir klasör olabilir; yoksa betik oluşturur.
-2. **Erişim şifresi.** Bir paroladır. Telefon bunu bir kez sorar, sonra hatırlar. Şifre koymazsanız adresi bulan herkes diskinize dosya atabilir; bu yüzden Yolla'yı evden dışarı hiç açmayacak olsanız bile bir şifre koyun. Siz belirlemezseniz betik rastgele bir şifre üretip ekrana yazar.
+1. **Klasör.** Yüklenen dosyaların bu bilgisayarda gideceği yer. Varsayılan olarak ev klasörünüzün içindeki `Pictures/Yolla`. Herhangi bir klasör olabilir; yoksa script oluşturur.
+2. **Erişim şifresi.** Bir paroladır. Telefon bunu bir kez sorar, sonra hatırlar. Şifre koymazsanız adresi bulan herkes diskinize dosya atabilir; bu yüzden Yolla'yı evden dışarı hiç açmayacak olsanız bile bir şifre koyun. Siz belirlemezseniz script rastgele bir şifre üretip ekrana yazar.
 3. **Tünel.** Yalnızca Yolla'ya kendi Wi‑Fi ağınızın dışından erişmek istiyorsanız gerekir. `quick`, hesap açmadan rastgele bir Cloudflare adresi verir (her yeniden başlatmada değişir). `cloudflare` (kendi alan adınızda kalıcı adres) ve `ngrok` ise ilgili servisten alınan bir token ister; ayrıntılar [Her yerden erişim](#her-yerden-erişim) bölümünde. Evde deneme yaparken bu adımı atlayabilirsiniz.
 
-Docker gerekir: Windows ve macOS'ta [Docker Desktop](https://docker.com/products/docker-desktop). Linux'ta betik Docker'ı sizin adınıza kurmayı teklif eder; onaylamanız yeterlidir.
+Docker gerekir: Windows ve macOS'ta [Docker Desktop](https://docker.com/products/docker-desktop). Linux'ta script Docker'ı sizin adınıza kurmayı teklif eder; onaylamanız yeterlidir.
 
 ### Tek satırla kurulum
 
@@ -76,9 +76,9 @@ macOS / Linux:
 curl -fsSL https://raw.githubusercontent.com/TekyaygilFethi/yolla/main/scripts/install.sh | bash
 ```
 
-Betik Docker'ın kurulu olup olmadığını kontrol eder, ayar dosyasını yazar, imajı indirir, Yolla'yı başlatır ve sonunda üç bilgiyi ekrana yazar: bu bilgisayardaki adres, Wi‑Fi ağındaki adres ve şifre.
+Script Docker'ın kurulu olup olmadığını kontrol eder, ayar dosyasını yazar, imajı indirir, Yolla'yı başlatır ve sonunda üç bilgiyi ekrana yazar: bu bilgisayardaki adres, Wi‑Fi ağındaki adres ve şifre.
 
-İnternetten indirilen bir betiği doğrudan çalıştırmak istemiyorsanız haklısınız. Önce indirin, okuyun (yaklaşık 200 satır), sonra çalıştırın:
+İnternetten indirilen bir scripti doğrudan çalıştırmak istemiyorsanız haklısınız. Önce indirin, okuyun (yaklaşık 200 satır), sonra çalıştırın:
 
 ```bash
 curl -fsSLO https://raw.githubusercontent.com/TekyaygilFethi/yolla/main/scripts/install.sh && less install.sh && bash install.sh
@@ -97,7 +97,7 @@ Aynı komutlar, ama üç ayarı kendiniz veriyorsunuz. Aşağıdaki örnekte `D:
 curl -fsSL https://raw.githubusercontent.com/TekyaygilFethi/yolla/main/scripts/install.sh | bash -s -- --dir ~/Pictures/Yolla --token gizli --tunnel quick
 ```
 
-Sonradan fikriniz değişirse betiği başka parametrelerle yeniden çalıştırın; örneğin mevcut kuruluma `--tunnel quick` ekleyebilirsiniz. Yeniden vermediğiniz ayarlar olduğu gibi kalır.
+Sonradan fikriniz değişirse scripti başka parametrelerle yeniden çalıştırın; örneğin mevcut kuruluma `--tunnel quick` ekleyebilirsiniz. Yeniden vermediğiniz ayarlar olduğu gibi kalır.
 
 | Parametre (sh / ps1) | Açıklama |
 |---|---|
@@ -110,7 +110,7 @@ Sonradan fikriniz değişirse betiği başka parametrelerle yeniden çalıştır
 | `--no-outbox` / `-NoOutbox` | Al sekmesini kapatır; telefondan hiçbir şey okunamaz. |
 | `--update`, `--status`, `--uninstall` / `-Update`, `-Status`, `-Uninstall` | Güncelleme, durum görüntüleme, kaldırma. Kaldırma işlemi dosyalarınıza dokunmaz. |
 
-Betik, `~/.yolla/` klasörüne (Windows'ta `%LOCALAPPDATA%\Yolla\`) bir `.env` ve bir `docker-compose.yml` dosyası yazar. Bunları elle düzenleyip `--update` ile uygulayabilirsiniz.
+Script, `~/.yolla/` klasörüne (Windows'ta `%LOCALAPPDATA%\Yolla\`) bir `.env` ve bir `docker-compose.yml` dosyası yazar. Bunları elle düzenleyip `--update` ile uygulayabilirsiniz.
 
 ### Elle kurulum
 
@@ -124,7 +124,7 @@ Windows'ta klasör yolunu `/` ile yazın: `-v "C:/Users/siz/Pictures/Yolla:/data
 
 ## Kullanım
 
-1. Bilgisayarda <http://localhost:8080> adresini açın. Aynı Wi‑Fi ağındaki telefondan `http://<bilgisayarın-ip-adresi>:8080` ile bağlanın (betik bu adresi ekrana yazar). Arada tünel olmadığı için en hızlı yol budur.
+1. Bilgisayarda <http://localhost:8080> adresini açın. Aynı Wi‑Fi ağındaki telefondan `http://<bilgisayarın-ip-adresi>:8080` ile bağlanın (script bu adresi ekrana yazar). Arada tünel olmadığı için en hızlı yol budur.
 2. İlk girişte şifre sorulur ve o cihazda hatırlanır. Daha sonra başka bir şifre girmek isterseniz klasör bilgisinin yanındaki *şifreyi değiştir* bağlantısını kullanın.
 3. **Fotoğraf & Video** düğmesi telefonun fotoğraf seçicisini açar; seçtiğiniz anda yükleme başlar. **Herhangi bir dosya** düğmesi ise dosya tarayıcısını açar: belgeler, ZIP dosyaları ve iPhone'da videoların orijinalleri için (aşağıya bakın).
 4. **Alt klasör** kutusu isteğe bağlıdır; `Tatil2026` yazarsanız o aktarım aynı adlı bir alt klasöre gider.
@@ -137,10 +137,10 @@ Yolla, 8080 portunda çalışan sıradan bir HTTP sunucusudur; HTTP trafiği ile
 
 **Cloudflare Tunnel** ile modemde port açmadan HTTPS erişimi sağlanabilir. CGNAT arkasındaki kurulumlarda da kullanılabilir.
 
-- Hızlı tünel, hesap gerekmez: betikte `--tunnel quick`, ya da `docker compose --profile quick up -d`, ya da bilgisayarda cloudflared kuruluysa `cloudflared tunnel --url http://localhost:8080`. Her yeniden başlatmada değişen rastgele bir `https://….trycloudflare.com` adresi oluşturulur. Geçici aktarımlar için kullanılabilir.
-- Kalıcı tünel, kendi alan adınızla: [Zero Trust panelinde](https://one.dash.cloudflare.com) **Networks → Tunnels → Create a tunnel → Cloudflared** yolunu izleyin, **Docker** seçeneğini seçip token'ı kopyalayın. Betiği `--tunnel cloudflare --cf-token <token>` ile çalıştırın (ya da token'ı `.env` dosyasına yazıp `cloudflare` profilini kullanın). Panele dönüp bir **Public Hostname** ekleyin: subdomain `yolla`, alan adınız, servis türü **HTTP**, URL `yolla:8080`. Artık telefondan `https://yolla.alanadiniz.com` adresine bağlanabilirsiniz. Önüne gerçek bir giriş ekranı istiyorsanız **Cloudflare Access** ekleyin (Access → Applications → Self-hosted, e-postaya gelen tek kullanımlık kodla giriş); ücretsiz plan 50 kullanıcıya kadar yeterlidir.
+- Hızlı tünel, hesap gerekmez: scriptte `--tunnel quick`, ya da `docker compose --profile quick up -d`, ya da bilgisayarda cloudflared kuruluysa `cloudflared tunnel --url http://localhost:8080`. Her yeniden başlatmada değişen rastgele bir `https://….trycloudflare.com` adresi oluşturulur. Geçici aktarımlar için kullanılabilir.
+- Kalıcı tünel, kendi alan adınızla: [Zero Trust panelinde](https://one.dash.cloudflare.com) **Networks → Tunnels → Create a tunnel → Cloudflared** yolunu izleyin, **Docker** seçeneğini seçip token'ı kopyalayın. Scripti `--tunnel cloudflare --cf-token <token>` ile çalıştırın (ya da token'ı `.env` dosyasına yazıp `cloudflare` profilini kullanın). Panele dönüp bir **Public Hostname** ekleyin: subdomain `yolla`, alan adınız, servis türü **HTTP**, URL `yolla:8080`. Artık telefondan `https://yolla.alanadiniz.com` adresine bağlanabilirsiniz. Önüne gerçek bir giriş ekranı istiyorsanız **Cloudflare Access** ekleyin (Access → Applications → Self-hosted, e-postaya gelen tek kullanımlık kodla giriş); ücretsiz plan 50 kullanıcıya kadar yeterlidir.
 
-**ngrok**, deneme için adres almanın en hızlı yolu. Hesap açın, `ngrok config add-authtoken <token>` komutunu bir kez çalıştırın, ardından `ngrok http 8080`. Ya da betikte `--tunnel ngrok --ngrok-token <token>` verin; adresi <http://localhost:4040> üzerinden görebilirsiniz. ngrok panelinden ücretsiz sabit alan adını alıp `--ngrok-domain isim.ngrok-free.app` verirseniz adres hep aynı kalır. İlk girişte ngrok'un ara sayfası çıkar; bir kez **Visit Site** düğmesine basmanız yeterlidir. Yolla, API isteklerine bu sayfayı atlatan başlığı eklediği için yüklemeler etkilenmez.
+**ngrok**, deneme için adres almanın en hızlı yolu. Hesap açın, `ngrok config add-authtoken <token>` komutunu bir kez çalıştırın, ardından `ngrok http 8080`. Ya da scriptte `--tunnel ngrok --ngrok-token <token>` verin; adresi <http://localhost:4040> üzerinden görebilirsiniz. ngrok panelinden ücretsiz sabit alan adını alıp `--ngrok-domain isim.ngrok-free.app` verirseniz adres hep aynı kalır. İlk girişte ngrok'un ara sayfası çıkar; bir kez **Visit Site** düğmesine basmanız yeterlidir. Yolla, API isteklerine bu sayfayı atlatan başlığı eklediği için yüklemeler etkilenmez.
 
 **Kendi reverse proxy'niz** (Caddy, nginx, Traefik, NPM) ya da **Tailscale** için [docs/reverse-proxy.md](docs/reverse-proxy.md) dosyasına bakın. Dikkat edilecek iki ayar var: istek gövdesi sınırını büyütün, istek tamponlamayı kapatın.
 
@@ -152,11 +152,11 @@ Yolla, 8080 portunda çalışan sıradan bir HTTP sunucusudur; HTTP trafiği ile
 - **Ekran açık kalmalı.** HTTPS üzerinden bağlandığınızda Yolla iOS'tan ekranı açık tutmasını ister. Düz `http://` yerel ağ adreslerinde bunu yapamaz; otomatik kilidi kendiniz kapatın. Yüzlerce öğe seçtiğinizde yükleme başlamadan önce kısa bir bekleme olması normaldir, iOS dosyaları hazırlar.
 - **Şifre koyun.** Evden dışarı hiç açmayacak olsanız bile.
 - **Windows güvenlik duvarı:** telefon `http://<pc-ip>:8080` adresine ulaşamıyorsa Docker Desktop için TCP 8080 portuna izin verin.
-- **Linux'ta izinler:** konteyner uid 1000 ile çalışır. Betik `PUID`/`PGID` değerlerini kullanıcınıza göre ayarlar; `docker run` kullanıyorsanız `--user` ekleyin.
+- **Linux'ta izinler:** konteyner uid 1000 ile çalışır. Script `PUID`/`PGID` değerlerini kullanıcınıza göre ayarlar; `docker run` kullanıyorsanız `--user` ekleyin.
 
 ## Ayarlar
 
-Tüm ayarlar ortam değişkenidir. Betik bunları sizin için `.env` dosyasına yazar.
+Tüm ayarlar ortam değişkenidir. Script bunları sizin için `.env` dosyasına yazar.
 
 | Değişken | Varsayılan | Açıklama |
 |---|---|---|
