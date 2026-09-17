@@ -1,6 +1,6 @@
 <p align="center"><img src="src/Yolla/wwwroot/icon-192.png" width="88" alt=""></p>
 <h1 align="center">Yolla</h1>
-<p align="center">Telefonundaki fotoğraf, video ve dosyaları kendi bilgisayarındaki bir klasöre yolla.<br>Telefona kurulum yok, bulut yok, hesap yok.</p>
+<p align="center">Telefonundaki fotoğrafları, videoları ve dosyaları kendi bilgisayarındaki bir klasöre yolla.<br>Telefona uygulama kurmak yok, bulut yok, hesap açmak yok.</p>
 
 <p align="center">
   <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/lisans-MIT-blue.svg"></a>
@@ -9,68 +9,68 @@
   <a href="README.md"><img alt="English" src="https://img.shields.io/badge/README-English-blue"></a>
 </p>
 
-<p align="center"><img src="docs/demo.gif" width="300" alt="iPhone'da Yolla: 13 fotoğraf seç, PC'ye düşüşünü izle">&nbsp;&nbsp;<img src="docs/receive-dark.png" width="300" alt="Koyu temada Al sekmesi"></p>
+<p align="center"><img src="docs/demo.gif" width="300" alt="iPhone'da Yolla: 13 fotoğraf seçiliyor, bilgisayardaki klasöre düşüyor">&nbsp;&nbsp;<img src="docs/receive-dark.png" width="300" alt="Koyu temada Al sekmesi"></p>
 
-## Nedir?
+## Bu ne?
 
-Yolla, dosya alan küçük bir web sayfası. Dosyaların gelmesini istediğin bilgisayarda çalıştırıyorsun (Windows PC, Mac, Linux, NAS, Raspberry Pi fark etmez), telefondan adresini açıyorsun, **Fotoğraf & Video**'ya basıp istediğin kadar seçiyorsun, dosyalar o bilgisayardaki sıradan bir klasöre düşüyor. Tersi de var: bilgisayarda Giden Kutusu klasörüne attığın dosyaları telefondan alıyorsun. Önüne bir tünel ya da kendi alan adını koyarsan sadece evde değil, her yerden çalışıyor.
+Yolla, dosya kabul eden küçücük bir web sayfası. Dosyaların gitmesini istediğin bilgisayarda çalıştırıyorsun; Windows, Mac, Linux, NAS ya da Raspberry Pi, fark etmez. Sonra telefonundan adresini açıyorsun, **Fotoğraf & Video**'ya basıp istediğin kadar fotoğraf seçiyorsun, hepsi o bilgisayardaki sıradan bir klasöre iniyor. Tersi de mümkün: bilgisayarda `Outbox` klasörüne attığın dosyalar telefonda görünüyor, oradan alıyorsun. Önüne bir tünel ya da kendi alan adını koyduğunda sadece evde değil, dünyanın her yerinden çalışıyor.
 
-Bunu yazdım çünkü iPhone'daki birkaç yüz tatil fotoğrafını Windows'a atmak hâlâ eziyet. iCloud for Windows olmadık yerde bozuluyor, AirDrop sadece Apple'la konuşuyor, her aktarım uygulaması da iki cihaza da kurulmak ve aynı Wi‑Fi'da olmak istiyor. Ben tam tersini istedim: bir konteyner, bir sayfa, benim klasörüm. Projenin tamamı bağımlılıksız bir C# dosyası ve bir HTML dosyası; bir akşamda okuyup sonra unutabilirsin.
+Bunu yazmamın sebebi basit: iPhone'daki birkaç yüz tatil fotoğrafını Windows'a atmak hâlâ işkence. iCloud for Windows olmadık yerde tıkanıyor, AirDrop yalnızca Apple cihazlarla konuşuyor, "dosya aktarma" uygulamalarının hepsi iki cihaza da kurulmak ve aynı Wi‑Fi'da olmak istiyor. Ben tam tersini istedim: tek konteyner, tek sayfa, kendi klasörüm. Projenin tamamı bir C# dosyası ile bir HTML dosyasından ibaret, harici bağımlılığı yok. Bir akşamda okur, sonra unutursun.
 
 ## Neden Yolla?
 
-Dosya taşımanın bir sürü yolu var. Burada farklı olan şu:
+Dosya taşımanın yüz yolu var. Bunu farklı kılan şeyler şunlar:
 
-- **Telefona hiçbir şey kurmuyorsun.** Bir adres açıyorsun. iPhone, Android, eşinin telefonu, arkadaşının laptopu, tarayıcısı olan her şey.
-- **Öğrenecek bir şey yok.** Tek sayfa, iki buton. Hesap yok, kütüphane yok, ayar ekranı yok, ayar dosyası yok.
-- **Dosyalar klasöre düşüyor.** Kendi bilgisayarındaki normal bir klasöre. Buluta değil, bir uygulamanın kendi veritabanına değil. Explorer'da ya da Finder'da her klasör gibi açıyorsun.
-- **Her yerden çalışıyor.** Ücretsiz bir tünelle aynı adres ofisten, otelden, başka ülkeden de çalışır.
-- **Kalabalık için yapıldı.** 400 fotoğraf seç, telefonu bırak. Bağlantı koparsa tekrar seç; kaldığı yerden devam eder, aynı fotoğrafı iki kez yüklemez.
-- **Yüklediklerin geri okunamaz.** Telefonun görebildiği tek klasör, bilerek doldurduğun Giden Kutusu. Yüklediğin her şey sadece-yazma; linki bulan biri fotoğraflarına göz atamaz, şifre koyduysan yükleyemez de.
-- **Okuyabileceğin kadar küçük.** İki dosya, bağımlılık yok, telemetri yok, ağının dışına giden hiçbir istek yok.
-- **Ücretsiz.** MIT lisansı. Windows, macOS ve Linux'ta tek satırla kurulur; Pi'de, NAS'ta çalışır.
+- **Telefona hiçbir şey kurmuyorsun.** Tarayıcıda bir adres açıyorsun, o kadar. iPhone, Android, eşinin telefonu, arkadaşının bilgisayarı; tarayıcısı olan her cihaz olur.
+- **Öğrenmen gereken bir şey yok.** Tek sayfa, iki düğme. Hesap yok, kütüphane yok, ayar ekranı yok, ayar dosyası yok.
+- **Dosyalar klasöre iniyor.** Kendi bilgisayarındaki normal bir klasöre; buluta ya da bir uygulamanın kendi veritabanına değil. Explorer'da veya Finder'da diğer klasörler gibi açıyorsun.
+- **Her yerden çalışıyor.** Ücretsiz bir tünelle aynı adres ofisten de, otelden de, başka bir ülkeden de çalışıyor.
+- **Toplu iş için tasarlandı.** 400 fotoğraf seç, telefonu kenara koy. Bağlantı koparsa aynı fotoğrafları yeniden seç: kaldığı yerden devam ediyor, aynı fotoğrafı iki kez yüklemiyor.
+- **Yüklediklerin geri okunamıyor.** Telefonun görebildiği tek klasör, senin bilerek doldurduğun Outbox. Yüklediğin her şey yalnızca yazılabilir; linki eline geçiren biri fotoğraflarına göz atamaz, şifre koyduysan yükleme de yapamaz.
+- **Okuyup güvenebileceğin kadar küçük.** İki dosya. Bağımlılık yok, telemetri yok, kendi ağının dışına giden tek bir istek yok.
+- **Ücretsiz.** MIT lisansı. Windows, macOS ve Linux'ta tek satırla kuruluyor; Raspberry Pi'de, NAS'ta da rahat çalışıyor.
 
-Genelde başvurulan araçlarla karşılaştırınca:
+Sık kullanılan araçlarla karşılaştırırsak:
 
 | | Yolla | LocalSend | PairDrop | copyparty | Immich / Nextcloud |
 |---|:-:|:-:|:-:|:-:|:-:|
-| Telefona kurulum gerekmez | ✅ | ❌ iki cihaza da uygulama | ✅ | ✅ | ❌ uygulama |
-| Evin dışından çalışır | ✅ | ❌ sadece aynı Wi‑Fi | ~ iki sayfa da açık olmalı | ✅ | ✅ |
-| Dosyalar normal bir klasöre düşer | ✅ | ✅ | ~ tarayıcı indirmeleri, ZIP | ✅ | ❌ kendi kütüphanesi |
-| Öğrenecek / ayarlayacak bir şey yok | ✅ | ✅ | ✅ | ❌ yüzlerce seçenek | ❌ |
-| Kopan 400 dosyalık yüklemeye devam eder | ✅ | ❌ | ❌ | ✅ | ✅ |
-| Yüklenenler geri okunamaz | ✅ | – | – | ~ isteğe bağlı | ❌ |
+| Telefona kurulum gerektirmez | ✅ | ❌ iki cihaza da uygulama | ✅ | ✅ | ❌ uygulama |
+| Ev dışından çalışır | ✅ | ❌ yalnızca aynı Wi‑Fi | ~ iki tarafta da sayfa açık olmalı | ✅ | ✅ |
+| Dosyalar sıradan bir klasöre iner | ✅ | ✅ | ~ tarayıcının indirme klasörüne, ZIP olarak | ✅ | ❌ kendi kütüphanesine |
+| Öğrenecek, ayarlayacak bir şey yok | ✅ | ✅ | ✅ | ❌ yüzlerce seçenek | ❌ |
+| Kopan 400 dosyalık yüklemeyi sürdürür | ✅ | ❌ | ❌ | ✅ | ✅ |
+| Yüklenenler geri okunamaz | ✅ | – | – | ~ ayarlanabilir | ❌ |
 
-<sub>Eylül 2026 itibarıyla, bildiğim kadarıyla. Sevdiğin araç hakkında yanlış bir şey yazdıysam issue aç, düzelteyim.</sub>
+<sub>Eylül 2026 itibarıyla, bildiğim kadarıyla. Kullandığın araç hakkında yanlış bir şey yazdıysam bir issue aç, düzelteyim.</sub>
 
-Ne zaman başka bir şey kullanmalısın: dosyalarına telefondan göz atıp indirmek de istiyorsan, küçük resim, WebDAV ve medya oynatıcıyla, [copyparty](https://github.com/9001/copyparty) bunların hepsini ve çok daha fazlasını yapıyor. Yüz tanımalı, telefondan otomatik yedekleyen gerçek bir fotoğraf kütüphanesi istiyorsan o [Immich](https://immich.app). İki cihaz hep aynı Wi‑Fi'daysa ve uygulama kurmak dert değilse [LocalSend](https://localsend.org) çok iyi. Yolla tek bir şey istediğin an için: şu dosyalar bilgisayarıma geçsin, hemen, hiçbir şey ayarlamadan.
+Ne zaman başka bir araç daha iyi olur? Dosyalarına telefondan göz atıp indirmek de istiyorsan, üstüne küçük resim, WebDAV ve medya oynatıcı da gerekiyorsa [copyparty](https://github.com/9001/copyparty) bunların hepsini ve çok daha fazlasını yapıyor. Yüz tanıyan, telefondan otomatik yedek alan tam teşekküllü bir fotoğraf arşivi istiyorsan aradığın şey [Immich](https://immich.app). İki cihaz hep aynı Wi‑Fi'daysa ve uygulama kurmak senin için dert değilse [LocalSend](https://localsend.org) gayet iyi. Yolla ise tek bir şey istediğin an için: "Şu dosyalar bilgisayarıma geçsin, hemen, hiçbir şey ayarlamadan."
 
-## Ne yapıyor
+## Neler yapıyor?
 
-- Aynı anda üç dosya yüklüyor, hata olursa tekrar deniyor; ilerlemeyi, hızı ve kalan süreyi gösteriyor.
-- Her dosyayı 32 MB'lık parçalar halinde diske akıtıyor. Kopan bağlantı en fazla bir parçaya mal oluyor; aynı dosyaları tekrar seçince tam kaldığı bayttan devam ediyor.
-- Asla üzerine yazmıyor. Aynı isim ve aynı boyut kopya sayılıp atlanıyor; aynı isimde farklı bir dosya `IMG_0001 (1).JPG` oluyor.
-- Fotoğrafın çekim tarihini dosya tarihi yapıyor, klasör çekim tarihine göre sıralanıyor. İstersen `YYYY/YYYY-AA/` alt klasörleri.
-- **Al** sekmesi: bilgisayarda `Outbox` klasörüne koyduğun dosyalar telefonda görünüyor. Tek dosya indir, birkaçını ZIP olarak al, ya da iPhone'da *Fotoğraflara Kaydet* de, doğrudan galeriye insin.
-- Her tarayıcıda çalışıyor. Masaüstünde sürükle-bırak ve yapıştır var. İkinci buton medya dışı dosyaları alıyor. Açık ve koyu tema, Türkçe ve İngilizce. iPhone'da *Ana Ekrana Ekle* deyince uygulama ikonu oluyor.
-- İsteğe bağlı erişim şifresi, boyut sınırı ve her yükleme için alt klasör.
-- Cloudflare Tunnel, ngrok, kendi reverse proxy'n (alt yolda bile) ya da düz yerel ağ, hepsinin arkasında çalışıyor. Parçalar Cloudflare'in 100 MB istek sınırının altında kalıyor.
+- Aynı anda üç dosya yüklüyor, hata olursa yeniden deniyor; ilerlemeyi, hızı ve kalan süreyi gösteriyor.
+- Her dosyayı 32 MB'lık parçalar hâlinde doğrudan diske yazıyor. Bağlantı koparsa en fazla bir parça kaybediyorsun; aynı dosyaları yeniden seçtiğinde tam kaldığı bayttan devam ediyor.
+- Hiçbir dosyanın üzerine yazmıyor. Adı ve boyutu aynı olan dosya zaten var sayılıp atlanıyor; adı aynı ama içeriği farklı olan `IMG_0001 (1).JPG` diye kaydediliyor.
+- Fotoğrafın çekim tarihini dosyanın tarihi yapıyor; klasörün yükleme sırasına değil, çekim tarihine göre sıralanıyor. İstersen `YYYY/YYYY-AA/` şeklinde alt klasörlere de dağıtıyor.
+- **Al** sekmesi: bilgisayarda `Outbox` klasörüne koyduğun dosyalar telefonda listeleniyor. Tek dosyayı indiriyorsun, birkaçını seçersen ZIP olarak geliyor, iPhone'da *Fotoğraflara Kaydet* dersen doğrudan galeriye iniyor.
+- Her tarayıcıda çalışıyor. Bilgisayarda sürükle-bırak ve yapıştırma da var. İkinci düğme fotoğraf dışındaki dosyaları da alıyor. Açık ve koyu tema, Türkçe ve İngilizce arayüz. iPhone'da *Ana Ekrana Ekle* dediğinde uygulama simgesi gibi duruyor.
+- İsteğe bağlı erişim şifresi, dosya boyutu sınırı ve her yükleme için ayrı alt klasör.
+- Cloudflare Tunnel'ın, ngrok'un, kendi reverse proxy'nin (alt yol altında bile) ya da düz yerel ağın arkasında; hepsinde çalışıyor. Parçalar Cloudflare'in istek başına 100 MB sınırının altında kalıyor.
 
 ## Kurulum
 
-### Önce karar verilecek üç şey
+### Önce üç şeye karar ver
 
-Kurulum betiği soru sormuyor. Varsayılanlarla kuruyor; sonradan bir şeyi değiştirmek istersen betiği tekrar çalıştırıyorsun. Yine de ne ayarladığını bilmek iyi:
+Kurulum betiği sana soru sormuyor; her şeyi varsayılan değerlerle kuruyor. Sonradan bir şeyi değiştirmek istersen betiği yeniden çalıştırman yeterli. Yine de neyi ayarladığını bilmek iyi olur:
 
-1. **Klasör.** Yüklemelerin bu bilgisayarda gideceği yer. Varsayılan, ev klasöründeki `Pictures/Yolla`. Herhangi bir klasör olur; yoksa oluşturulur.
-2. **Erişim şifresi.** Bir parola. Telefon bir kez soruyor, sonra hatırlıyor. Şifre yoksa adresi bulan herkes diskine dosya atabilir; Yolla Wi‑Fi'ının dışına hiç çıkmayacaksa bile bir tane olsun. Seçmezsen betik rastgele bir tane üretip gösteriyor.
-3. **Tünel.** Sadece Yolla'ya Wi‑Fi'ının dışından erişmek için lazım. `quick`, hesap açmadan rastgele bir Cloudflare adresi veriyor (her yeniden başlatmada değişiyor). `cloudflare` (kendi alan adında kalıcı adres) ve `ngrok` o servislerden alınan bir token istiyor; bkz. [Her yerden erişim](#her-yerden-erişim). Evde deneme yaparken bunu atla.
+1. **Klasör.** Yüklenen dosyaların bu bilgisayarda gideceği yer. Varsayılanı, ev klasörünün içindeki `Pictures/Yolla`. Herhangi bir klasör olabilir; yoksa betik oluşturuyor.
+2. **Erişim şifresi.** Kısacası bir parola. Telefon bunu bir kez soruyor, sonra hatırlıyor. Şifre koymazsan adresi bulan herkes diskine dosya atabilir; bu yüzden Yolla'yı evden dışarı hiç çıkarmayacak olsan bile bir şifre olsun. Sen belirlemezsen betik rastgele bir tane üretip ekrana yazıyor.
+3. **Tünel.** Yalnızca Yolla'ya kendi Wi‑Fi'ının dışından erişmek istiyorsan gerekiyor. `quick`, hesap açmadan rastgele bir Cloudflare adresi veriyor (her yeniden başlatmada değişiyor). `cloudflare` (kendi alan adında kalıcı adres) ve `ngrok` ise o servislerden alacağın bir token istiyor; ayrıntılar [Her yerden erişim](#her-yerden-erişim) bölümünde. Evde deneme yaparken bunu atlayabilirsin.
 
-Docker lazım: Windows ve macOS'ta [Docker Desktop](https://docker.com/products/docker-desktop). Linux'ta betik kurmayı teklif ediyor, sen onaylıyorsun.
+Docker gerekiyor: Windows ve macOS'ta [Docker Desktop](https://docker.com/products/docker-desktop). Linux'ta betik Docker'ı senin adına kurmayı teklif ediyor; sen onaylıyorsun.
 
 ### Tek satır
 
-Varsayılanlar: klasör `Pictures/Yolla`, üretilen şifre, tünel yok.
+Varsayılanlarla: klasör `Pictures/Yolla`, şifre otomatik üretiliyor, tünel yok.
 
 Windows (PowerShell):
 
@@ -84,17 +84,17 @@ macOS / Linux:
 curl -fsSL https://raw.githubusercontent.com/TekyaygilFethi/yolla/main/scripts/install.sh | bash
 ```
 
-Betik Docker'a bakıyor, ayar dosyasını yazıyor, imajı çekiyor, Yolla'yı başlatıyor; bu bilgisayardaki adresi, Wi‑Fi'daki adresi ve şifreyi ekrana basıyor.
+Betik Docker'ın kurulu olup olmadığına bakıyor, ayar dosyasını yazıyor, imajı indiriyor, Yolla'yı başlatıyor ve sonunda üç şeyi ekrana yazıyor: bu bilgisayardaki adres, Wi‑Fi'daki adres ve şifre.
 
-Bir betiği doğrudan shell'e akıtmak hoşuna gitmiyorsa haklısın. İndir, oku (200 satır civarı), sonra çalıştır:
+İnternetten indirilen bir betiği doğrudan çalıştırmak hoşuna gitmiyorsa haklısın. Önce indir, oku (200 satır kadar), sonra çalıştır:
 
 ```bash
 curl -fsSLO https://raw.githubusercontent.com/TekyaygilFethi/yolla/main/scripts/install.sh && less install.sh && bash install.sh
 ```
 
-### Parametreli
+### Parametreyle
 
-Aynı şey, üç ayarı kendin seçerek. Burada: `D:` üzerinde bir klasör, kendi şifren ve hemen her yerden çalışsın diye hızlı tünel.
+Aynı komutlar, ama üç ayarı da kendin veriyorsun. Örnekte `D:` sürücüsünde bir klasör, kendi şifren ve hemen her yerden erişilsin diye hızlı tünel var:
 
 ```powershell
 # Windows
@@ -105,22 +105,22 @@ Aynı şey, üç ayarı kendin seçerek. Burada: `D:` üzerinde bir klasör, ken
 curl -fsSL https://raw.githubusercontent.com/TekyaygilFethi/yolla/main/scripts/install.sh | bash -s -- --dir ~/Pictures/Yolla --token gizli --tunnel quick
 ```
 
-Fikrin değişti mi? Başka parametrelerle tekrar çalıştır, mesela mevcut kuruluma `--tunnel quick` ekle. Tekrar vermediğin her şey olduğu gibi kalıyor.
+Sonradan fikrin değişirse betiği başka parametrelerle yeniden çalıştır; mesela mevcut kuruluma `--tunnel quick` ekleyebilirsin. Yeniden vermediğin ayarlar olduğu gibi kalıyor.
 
-| Parametre (sh / ps1) | Ne yapıyor |
+| Parametre (sh / ps1) | Ne işe yarıyor |
 |---|---|
-| `--dir` / `-Dir` | Dosyaların düşeceği klasör. Varsayılan `~/Pictures/Yolla`. |
-| `--token` / `-Token` | Erişim şifresi. Vermezsen üretiliyor. `--no-token` / `-NoToken` kapatıyor (lütfen sadece yerel ağda). |
-| `--port` / `-Port` | Bu makinedeki port. Varsayılan `8080`. |
-| `--tunnel` / `-Tunnel` | `quick`, `cloudflare` (+ `--cf-token`), `ngrok` (+ `--ngrok-token`, istersen `--ngrok-domain`) ya da `none`. |
-| `--group-by-date` / `-GroupByDate` | Fotoğraf tarihine göre `YYYY/YYYY-AA/` altına kaydet. |
-| `--max-mb` / `-MaxMb` | Bundan büyük tek dosyaları reddet. Varsayılan 0 = sınır yok. |
+| `--dir` / `-Dir` | Dosyaların ineceği klasör. Varsayılan `~/Pictures/Yolla`. |
+| `--token` / `-Token` | Erişim şifresi. Vermezsen otomatik üretiliyor. `--no-token` / `-NoToken` şifreyi tamamen kapatıyor (lütfen yalnızca yerel ağda). |
+| `--port` / `-Port` | Bu bilgisayarda dinlenecek port. Varsayılan `8080`. |
+| `--tunnel` / `-Tunnel` | `quick`, `cloudflare` (`--cf-token` ile), `ngrok` (`--ngrok-token` ile, istersen `--ngrok-domain`) ya da `none`. |
+| `--group-by-date` / `-GroupByDate` | Fotoğrafları çekim tarihine göre `YYYY/YYYY-AA/` klasörlerine dağıt. |
+| `--max-mb` / `-MaxMb` | Bundan büyük dosyaları kabul etme. Varsayılan 0, yani sınır yok. |
 | `--no-outbox` / `-NoOutbox` | Al sekmesini kapat; telefondan hiçbir şey okunamasın. |
-| `--update`, `--status`, `--uninstall` / `-Update`, `-Status`, `-Uninstall` | Bakım. Kaldırma dosyalarına dokunmuyor. |
+| `--update`, `--status`, `--uninstall` / `-Update`, `-Status`, `-Uninstall` | Güncelleme, durum, kaldırma. Kaldırma dosyalarına dokunmuyor. |
 
-Betik `~/.yolla/` altına (Windows'ta `%LOCALAPPDATA%\Yolla\`) bir `.env` ve bir `docker-compose.yml` yazıyor. İstersen elle düzenle; `--update` uygular.
+Betik, `~/.yolla/` klasörüne (Windows'ta `%LOCALAPPDATA%\Yolla\`) bir `.env` ve bir `docker-compose.yml` yazıyor. İstersen bunları elle düzenleyip `--update` ile uygulayabilirsin.
 
-### Elle
+### Elle kurulum
 
 ```bash
 docker run -d --name yolla --restart unless-stopped -p 8080:8080 \
@@ -128,70 +128,70 @@ docker run -d --name yolla --restart unless-stopped -p 8080:8080 \
   ghcr.io/tekyaygilfethi/yolla:latest
 ```
 
-Windows yolları `/` ile: `-v "C:/Users/sen/Pictures/Yolla:/data"`. Konteyner 1000 numaralı kullanıcı olarak çalışıyor; Linux'ta klasörün başka bir kullanıcıya aitse `--user "$(id -u):$(id -g)"` ekle. Compose için: `git clone`, `cp .env.example .env`, düzenle, `docker compose up -d`. Docker yok mu? [.NET 10 SDK](https://dotnet.microsoft.com/download) ile: `cd src/Yolla && UPLOAD_DIR=/yol UPLOAD_TOKEN=gizli dotnet run -c Release`.
+Windows'ta klasör yolunu `/` ile yaz: `-v "C:/Users/sen/Pictures/Yolla:/data"`. Konteyner 1000 numaralı kullanıcıyla çalışıyor; Linux'ta klasör başka bir kullanıcıya aitse komuta `--user "$(id -u):$(id -g)"` ekle. Compose kullanacaksan: `git clone`, ardından `cp .env.example .env`, dosyayı düzenle, `docker compose up -d`. Docker'ın hiç yoksa [.NET 10 SDK](https://dotnet.microsoft.com/download) ile de çalışıyor: `cd src/Yolla && UPLOAD_DIR=/yol UPLOAD_TOKEN=gizli dotnet run -c Release`.
 
 ## Kullanım
 
-1. Bilgisayarda: <http://localhost:8080>. Aynı Wi‑Fi'daki telefondan: `http://<bilgisayar-ip>:8080` (betik yazıyor). Tünel yok, en hızlı yol bu.
-2. İlk açılışta şifre soruyor, o cihazda hatırlıyor. Sonradan başka bir şifre girmek istersen klasör bilgisinin yanındaki *şifreyi değiştir*'e bas.
-3. **Fotoğraf & Video** telefonun fotoğraf seçicisini açıyor. Seç, yükleme hemen başlıyor. **Herhangi bir dosya** onun yerine dosya tarayıcısını açıyor: belgeler, ZIP'ler ve iPhone'da orijinal videolar (aşağıda).
-4. **Alt klasör** isteğe bağlı; `Tatil2026` yazarsan bu yükleme o isimde bir alt klasöre gidiyor.
-5. **Tamamlandı** yazana kadar sayfayı açık tut. Yazmazsa aynı dosyaları tekrar seç, kaldığı yerden devam ediyor.
-6. **Al**: bilgisayarda dosyaları Yolla klasörünün içindeki `Outbox` klasörüne koy. Telefonda Al sekmesini aç, istediklerine dokun, *İndir* (tek dosya ya da birkaçı için ZIP) ya da iPhone'da *Fotoğraflara Kaydet*.
+1. Bilgisayarda <http://localhost:8080> adresini aç. Aynı Wi‑Fi'daki telefondan `http://<bilgisayarın-ip'si>:8080` ile gir (betik bu adresi ekrana yazıyor). Arada tünel olmadığı için en hızlı yol bu.
+2. İlk girişte şifre soruyor ve o cihazda hatırlıyor. Sonradan başka bir şifre girmek istersen klasör bilgisinin yanındaki *şifreyi değiştir* bağlantısına bas.
+3. **Fotoğraf & Video**, telefonun fotoğraf seçicisini açıyor. Seçtiğin an yükleme başlıyor. **Herhangi bir dosya** ise dosya tarayıcısını açıyor: belgeler, ZIP'ler ve iPhone'da videoların orijinalleri için (aşağıya bak).
+4. **Alt klasör** kutusu isteğe bağlı; `Tatil2026` yazarsan o yükleme aynı adlı bir alt klasöre gidiyor.
+5. Ekranda **Tamamlandı** yazana kadar sayfayı kapatma. Yazmadan koptuysa aynı dosyaları yeniden seç; kaldığı yerden devam ediyor.
+6. **Al**: bilgisayarda dosyaları Yolla klasörünün içindeki `Outbox` klasörüne at. Telefonda Al sekmesini aç, istediklerine dokun, sonra *İndir* (tek dosya ya da birkaçı için ZIP) ya da iPhone'da *Fotoğraflara Kaydet*.
 
 ## Her yerden erişim
 
-Yolla 8080 portunda düz bir HTTP sunucusu. Ona HTTP iletebilen her şey olur. Birini seç:
+Yolla, 8080 portunda çalışan sıradan bir HTTP sunucusu. Ona HTTP trafiği iletebilen her şeyin arkasına koyabilirsin. Seçenekler:
 
-**Cloudflare Tunnel**, benim önereceğim. Ücretsiz, trafik sınırı yok, HTTPS, port yönlendirme yok, CGNAT arkasında da çalışıyor.
+**Cloudflare Tunnel**, benim tavsiyem. Ücretsiz, trafik sınırı yok, HTTPS hazır geliyor, modemde port açmak gerekmiyor, CGNAT arkasında bile çalışıyor.
 
-- Hızlı tünel, hesapsız: betikte `--tunnel quick`, ya da `docker compose --profile quick up -d`, ya da makinede cloudflared kuruluysa `cloudflared tunnel --url http://localhost:8080`. Her yeniden başlatmada değişen rastgele bir `https://….trycloudflare.com` adresi alıyorsun. "Fotoğrafları hemen at" için iyi.
-- İsimli tünel, kendi alan adın, kalıcı adres: [Zero Trust panelinde](https://one.dash.cloudflare.com) **Networks → Tunnels → Create a tunnel → Cloudflared**, **Docker**'ı seç, token'ı kopyala. Betiği `--tunnel cloudflare --cf-token <token>` ile çalıştır (ya da `.env`'e yaz, `cloudflare` profilini kullan). Panele dönüp **Public Hostname** ekle: subdomain `yolla`, alan adın, service **HTTP**, URL `yolla:8080`. Telefonda `https://yolla.alanadin.com`. Önüne gerçek bir giriş ekranı istiyorsan **Cloudflare Access** ekle (Access → Applications → Self-hosted, e-postayla tek seferlik PIN); ücretsiz plan 50 kullanıcıya kadar.
+- Hızlı tünel, hesap gerekmez: betikte `--tunnel quick`, ya da `docker compose --profile quick up -d`, ya da bilgisayarda cloudflared kuruluysa `cloudflared tunnel --url http://localhost:8080`. Sana her yeniden başlatmada değişen rastgele bir `https://….trycloudflare.com` adresi veriyor. "Fotoğrafları şimdi at" durumları için birebir.
+- Kalıcı tünel, kendi alan adınla: [Zero Trust panelinde](https://one.dash.cloudflare.com) **Networks → Tunnels → Create a tunnel → Cloudflared** yolunu izle, **Docker**'ı seç ve token'ı kopyala. Betiği `--tunnel cloudflare --cf-token <token>` ile çalıştır (ya da token'ı `.env`'e yazıp `cloudflare` profilini kullan). Panele dönüp bir **Public Hostname** ekle: subdomain `yolla`, alan adın, servis türü **HTTP**, URL `yolla:8080`. Artık telefondan `https://yolla.alanadin.com` adresine giriyorsun. Önüne gerçek bir giriş ekranı istersen **Cloudflare Access** ekle (Access → Applications → Self-hosted, e-postaya gelen tek kullanımlık kodla giriş); ücretsiz plan 50 kullanıcıya kadar yetiyor.
 
-**ngrok**, test için adres almanın en hızlı yolu. Kayıt ol, `ngrok config add-authtoken <token>`, sonra `ngrok http 8080`. Ya da betikte `--tunnel ngrok --ngrok-token <token>`; adres <http://localhost:4040>'ta. ngrok panelinden ücretsiz sabit alan adını alıp `--ngrok-domain isim.ngrok-free.app` verirsen adres hep aynı kalıyor. İlk açılışta ngrok'un ara sayfası çıkıyor, bir kez **Visit Site**'a bas. Yolla API çağrılarına o sayfayı atlatan başlığı ekliyor, yüklemeler etkilenmiyor.
+**ngrok**, deneme için adres almanın en hızlı yolu. Hesap aç, `ngrok config add-authtoken <token>` komutunu bir kez çalıştır, sonra `ngrok http 8080`. Ya da betikte `--tunnel ngrok --ngrok-token <token>` de; adresi <http://localhost:4040>'ta görürsün. ngrok panelinden ücretsiz sabit alan adını alıp `--ngrok-domain isim.ngrok-free.app` verirsen adres hep aynı kalıyor. İlk girişte ngrok'un ara sayfası çıkıyor; bir kez **Visit Site**'a basman yeterli. Yolla, API isteklerine o sayfayı atlatan başlığı ekliyor, yüklemeler bundan etkilenmiyor.
 
-**Kendi reverse proxy'n** (Caddy, nginx, Traefik, NPM) ya da **Tailscale**: [docs/reverse-proxy.md](docs/reverse-proxy.md). Önemli olan iki ayar var: istek gövdesi sınırını büyüt, istek tamponlamayı kapat.
+**Kendi reverse proxy'n** (Caddy, nginx, Traefik, NPM) ya da **Tailscale** kullanacaksan [docs/reverse-proxy.md](docs/reverse-proxy.md) dosyasına bak. Dikkat edilecek iki ayar var: istek gövdesi sınırını büyüt, istek tamponlamayı kapat.
 
 ## Bilmekte fayda var
 
-- **iPhone'da Fotoğraflar'dan seçilen videoların kalitesi düşüyor.** Safari onları yeniden kodluyor (HEVC'den daha düşük bitrate'li H.264'e; 4K/60 gözle görülür yumuşuyor, bazıları ses kanalının kaybolduğunu da bildiriyor). Bunu hiçbir web sayfası kapatamıyor. Orijinal için **Herhangi bir dosya → Dosyalar** (videoyu önce Dosyalar'a kaydet) ya da [docs/ios-originals.md](docs/ios-originals.md)'deki kısa Kısayol; o yolla orijinal HEIC fotoğraflar da geliyor. Fotoğraflar'dan seçilen fotoğraflar HEIC'ten çevrilmiş tam çözünürlüklü JPEG olarak geliyor, çoğu kişi için sorun değil.
-- **ngrok'un ücretsiz planı ayda 1 GB civarı.** Bir tatil albümü eder. Büyük partiler için Cloudflare ya da yerel ağ.
-- **Cloudflare istek başına 100 MB alıyor** (ücretsiz planlar). Yüklemelerin parçalı olmasının sebebi bu; `CHUNK_MB`'yi 100'ün altında tut.
-- **Ekran açık kalsın.** HTTPS'te Yolla iOS'tan ekranı açık tutmasını istiyor. Düz `http://` yerel ağ adreslerinde bunu yapamıyor, otomatik kilidi kendin kapat. Yüzlerce öğe seçince yükleme başlamadan önce bir süre beklemen de normal, iOS dosyaları hazırlıyor.
-- **Şifre koy**, kendi Wi‑Fi'ının dışına hiç çıkmayacaksan bile.
-- **Windows güvenlik duvarı:** telefon `http://<pc-ip>:8080`'e ulaşamıyorsa Docker Desktop için TCP 8080'e izin ver.
-- **Linux izinleri:** konteyner uid 1000 olarak çalışıyor. Betik `PUID`/`PGID`'yi senin kullanıcına ayarlıyor; `docker run` ile `--user` ekle.
+- **iPhone'da Fotoğraflar'dan seçilen videoların kalitesi düşüyor.** Safari bu videoları yeniden kodluyor: HEVC yerine daha düşük bitrate'li H.264. 4K/60 çekimlerde fark gözle görülüyor; ses kanalının kaybolduğunu bildirenler bile var. Bunu hiçbir web sayfası engelleyemiyor, iOS'un kendi davranışı. Orijinali istiyorsan videoyu önce Dosyalar'a kaydet, sonra **Herhangi bir dosya → Dosyalar** ile seç; ya da [docs/ios-originals.md](docs/ios-originals.md) dosyasındaki kısa Kısayol'u kur, o yolla fotoğrafların orijinal HEIC'leri de geliyor. Fotoğraflar'dan seçilen fotoğraflara gelince: HEIC'ten çevrilmiş tam çözünürlüklü JPEG olarak geliyorlar, çoğu kişi için sorun değil.
+- **ngrok'un ücretsiz planı ayda 1 GB civarında trafik veriyor.** Bir tatil albümü buna denk. Büyük yüklemeler için Cloudflare ya da yerel ağ kullan.
+- **Cloudflare, ücretsiz planlarda istek başına 100 MB kabul ediyor.** Yüklemelerin parçalı olmasının sebebi bu; `CHUNK_MB` değerini 100'ün altında tut.
+- **Ekran açık kalsın.** HTTPS üzerindeyken Yolla iOS'tan ekranı açık tutmasını istiyor. Düz `http://` yerel ağ adreslerinde bunu yapamıyor; otomatik kilidi kendin kapat. Yüzlerce öğe seçtiğinde yükleme başlamadan önce biraz beklemen normal, iOS dosyaları hazırlıyor.
+- **Şifre koy.** Evden hiç çıkarmayacak olsan bile.
+- **Windows güvenlik duvarı:** telefon `http://<pc-ip>:8080` adresine ulaşamıyorsa Docker Desktop için TCP 8080 portuna izin ver.
+- **Linux'ta izinler:** konteyner uid 1000 ile çalışıyor. Betik `PUID`/`PGID` değerlerini senin kullanıcına göre ayarlıyor; `docker run` kullanıyorsan `--user` ekle.
 
 ## Ayarlar
 
-Ortam değişkenleri. Betik bunları `.env`'e yazıyor.
+Tüm ayarlar ortam değişkeni. Betik bunları senin için `.env` dosyasına yazıyor.
 
 | Değişken | Varsayılan | Anlamı |
 |---|---|---|
-| `UPLOAD_DIR` | Docker'da `/data`, `dotnet run`'da `./uploads` | Dosyaların yazıldığı yer. |
-| `UPLOAD_TOKEN` | boş = şifre yok | Ortak şifre; `X-Upload-Token` başlığı ya da `?token=` ile gönderilir. |
-| `GROUP_BY_DATE` | `false` | `true` olunca dosyalar fotoğraf tarihine göre `2026/2026-09/` altına gider. |
-| `CHUNK_MB` | `32` | Parça boyutu. |
-| `MAX_UPLOAD_MB` | `0` (sınır yok) | Bundan büyük tek dosyaları reddet. |
-| `SHARE_DIR` | `<UPLOAD_DIR>/Outbox` | Telefonun okuyabildiği tek klasör (Al sekmesi). `off` kapatır. |
-| `ASPNETCORE_HTTP_PORTS` | `8080` | Konteyner içindeki port. |
+| `UPLOAD_DIR` | Docker'da `/data`, `dotnet run`'da `./uploads` | Dosyaların yazıldığı klasör. |
+| `UPLOAD_TOKEN` | boş = şifre yok | Ortak şifre. `X-Upload-Token` başlığıyla ya da `?token=` ile gönderiliyor. |
+| `GROUP_BY_DATE` | `false` | `true` yapınca dosyalar çekim tarihine göre `2026/2026-09/` gibi klasörlere gidiyor. |
+| `CHUNK_MB` | `32` | Yükleme parçalarının boyutu. |
+| `MAX_UPLOAD_MB` | `0` (sınırsız) | Bundan büyük dosyaları reddet. |
+| `SHARE_DIR` | `<UPLOAD_DIR>/Outbox` | Telefonun okuyabildiği tek klasör (Al sekmesi). `off` yazarsan kapanıyor. |
+| `ASPNETCORE_HTTP_PORTS` | `8080` | Konteynerin içindeki port. |
 
-Compose'da ayrıca `YOLLA_DIR`, `YOLLA_PORT`, `YOLLA_BIND` (yerel proxy arkasında `127.0.0.1`), `YOLLA_IMAGE`, `PUID`/`PGID` ve `COMPOSE_PROFILES=quick|cloudflare|ngrok` var; bkz. [.env.example](.env.example).
+Compose kullanıyorsan ek olarak `YOLLA_DIR`, `YOLLA_PORT`, `YOLLA_BIND` (yerel proxy arkasında `127.0.0.1`), `YOLLA_IMAGE`, `PUID`/`PGID` ve `COMPOSE_PROFILES=quick|cloudflare|ngrok` de var; [.env.example](.env.example) dosyasına bak.
 
-## Nasıl çalışıyor
+## Nasıl çalışıyor?
 
-Sayfa her dosyadan önce `GET /api/exists` diye soruyor: zaten var mı (atla), yarım mı (o bayttan devam et)? Sonra dosyayı `PUT /api/upload` ile parça parça gönderiyor; her parça ham istek gövdesi olarak `.part` dosyasına ekleniyor. Son parça dosyayı yerine taşıyor ve tarihini geri yazıyor. Bellekte hiçbir şey tutulmuyor; dosya ne kadar büyük olursa olsun bellek kullanımı sabit kalıyor. Al sekmesi yalnızca Outbox klasörünü okuyor: `GET /api/outbox` listeliyor, `/api/outbox/file` tek dosyayı veriyor (aralık istekleriyle, video ileri sarılabiliyor), `/api/outbox/zip` birkaçını ZIP olarak akıtıyor. Tam API, tek satırlık `curl -T` dahil, [docs/api.md](docs/api.md)'de.
+Sayfa her dosyadan önce `GET /api/exists` ile sunucuya soruyor: bu dosya zaten var mı (varsa atla), yarım mı kalmış (kaldığı bayttan devam et)? Sonra dosyayı `PUT /api/upload` ile parça parça gönderiyor; her parça ham istek gövdesi olarak `.part` dosyasının sonuna ekleniyor. Son parça geldiğinde dosya asıl adına taşınıyor ve tarihi geri yazılıyor. Hiçbir şey bellekte tutulmuyor; dosya ne kadar büyük olursa olsun bellek kullanımı değişmiyor. Al sekmesi yalnızca Outbox klasörünü okuyor: `GET /api/outbox` listeliyor, `/api/outbox/file` tek dosyayı veriyor (aralık istekleri desteklendiği için video ileri sarılabiliyor), `/api/outbox/zip` birkaç dosyayı ZIP olarak akıtıyor. API'nin tamamı, tek satırlık `curl -T` örneğiyle birlikte [docs/api.md](docs/api.md) dosyasında.
 
-`tests/smoke.sh` uçtan uca bir test: uygulamayı publish edip başlatıyor ve her endpoint'i deniyor (parçalama, devam etme, kopya, boyut sınırı, yavaşlatma). CI'da çalışıyor.
+`tests/smoke.sh` uçtan uca bir test: uygulamayı derleyip başlatıyor ve her endpoint'i tek tek deniyor (parçalama, devam etme, kopya tespiti, boyut sınırı, hatalı şifre freni). CI'da her push'ta çalışıyor.
 
 ## Yol haritası
 
 - [ ] Al sekmesinde küçük resimler
-- [ ] Aileye erişim vermek için QR kod / davet linki
-- [ ] İsteğe bağlı sunucu tarafı HEIC → JPEG
-- [ ] Birden fazla şifre, kişi başı alt klasör
-- [ ] Docker'sız, tek exe Windows tepsi uygulaması
+- [ ] Aileye erişim vermek için QR kod ya da davet bağlantısı
+- [ ] İsteğe bağlı olarak sunucuda HEIC → JPEG dönüşümü
+- [ ] Birden fazla şifre, kişi başına ayrı alt klasör
+- [ ] Docker gerektirmeyen tek exe'lik Windows uygulaması
 
 ## Katkı, güvenlik, lisans
 
-Issue'lar ve küçük, bağımlılıksız PR'lar hoş gelir, bkz. [CONTRIBUTING.md](CONTRIBUTING.md). Güvenlik notları ve bir sorunu nasıl bildireceğin [SECURITY.md](SECURITY.md)'de. [MIT](LICENSE).
+Hata bildirimleri ve küçük, bağımlılık eklemeyen PR'lar başım üstüne; ayrıntılar [CONTRIBUTING.md](CONTRIBUTING.md) dosyasında. Güvenlik notları ve bir açığı nasıl bildireceğin [SECURITY.md](SECURITY.md) dosyasında. Lisans [MIT](LICENSE).
