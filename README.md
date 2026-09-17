@@ -1,6 +1,6 @@
 <p align="center"><img src="src/Yolla/wwwroot/icon-192.png" width="88" alt=""></p>
 <h1 align="center">Yolla</h1>
-<p align="center">Send photos, videos and files from your phone to a folder on your own computer.<br>Nothing to install on the phone, no cloud, no account.</p>
+<p align="center">Lightweight file transfers on your own computer or server.<br>Open source. Browser access. Storage you control.</p>
 
 <p align="center">
   <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
@@ -11,48 +11,40 @@
 
 <p align="center"><img src="docs/demo.gif" width="300" alt="Yolla on an iPhone: pick 13 photos, watch them land on the PC">&nbsp;&nbsp;<img src="docs/receive-dark.png" width="300" alt="Receive tab in dark mode"></p>
 
-## What is this
+## What is Yolla?
 
-Yolla is a small web page that receives files. You run it on the computer that should get the files (a Windows PC, a Mac, a Linux box, a NAS, a Raspberry Pi), open its address on your phone, tap **Photos & Videos**, pick as many as you want, and they show up in a normal folder on that computer. It works the other way too: drop files into the Outbox folder on the computer and pick them up on the phone. Put a tunnel or your own domain in front of it and it works from anywhere, not only at home.
+Yolla is a lightweight, open-source file transfer tool you run on your own computer or server. Open its address in a browser to send photos, videos and other files directly to a folder you choose. To transfer files the other way, put them in the server's `Outbox` folder and download them from the **Receive** tab on another device.
 
-I wrote it because getting a few hundred holiday photos from an iPhone onto a Windows PC is still a chore. iCloud for Windows breaks in creative ways, AirDrop only talks to Apple, and every transfer app wants to be installed on both devices and sit on the same Wi‑Fi. I wanted the opposite: one container, one page, my folder. The whole thing is one C# file and one HTML file with no dependencies, so you can read it in an evening and forget about it afterwards.
+I built it to move photos and videos from my iPhone to my Windows PC through a simple web page. That idea also works with an Android phone, a tablet or another computer: the sending device only needs a browser and access to your Yolla address. The server can run on Windows, macOS or Linux, including compatible NAS and Raspberry Pi setups.
 
-## Why Yolla
+Yolla is a small personal tool with a deliberately narrow scope. Its aim is not to compete with major storage platforms or replace their full feature sets. It offers a lightweight way to transfer files on infrastructure you control, with a small codebase you can inspect and adapt.
 
-There are a lot of ways to move files. This is what's different here:
+## Why Yolla?
 
-- **Nothing on the phone.** You open a web address. iPhone, Android, your partner's phone, a friend's laptop, whatever has a browser.
-- **Nothing to learn.** One page, two buttons. No account, no library, no settings screen, no config file.
-- **Files go into a folder.** A normal folder on your own computer. Not a cloud, not some app's private database. Open it in Explorer or Finder like any other.
-- **Works from anywhere.** With a free tunnel the same address works from the office, a hotel, another country.
-- **Built for big batches.** Select 400 photos and put the phone down. If the connection drops, select them again; it carries on from where it stopped and never uploads the same photo twice.
-- **Your uploads can't be read back.** The only folder the phone can see is the Outbox you fill on purpose. Everything you upload is write-only, so someone who finds the link can't browse your photos, and a token stops them uploading, too.
-- **Small enough to actually read.** Two files, no dependencies, no telemetry, no calls to anything outside your network.
-- **Free.** MIT licence. One-line install on Windows, macOS and Linux; runs fine on a Pi or a NAS.
+- **Choose where your files live.** Uploads are saved in an ordinary folder on your computer or server. You choose the disk and folder, and can open the files with your usual tools.
+- **Use a browser on the sending device.** No phone app or Yolla account is required. Set up the server once, then open its address and enter your access password.
+- **Set the limits that suit you.** Configure the shared access password, maximum file size and upload subfolders. Choose which folder is available for downloads, or turn downloads off entirely.
+- **Transfer in both directions.** Devices that can reach your Yolla address and authenticate can upload files and download the files you place in `Outbox`.
+- **Reach your server while away.** Configure a tunnel or your own HTTPS reverse proxy to use Yolla outside your local network. Your server must stay running, have enough disk space and be reachable from the sending device.
+- **Use storage you already have.** You can move a batch of travel photos to your own disk without buying an additional cloud storage subscription. Storage, connectivity and any hosting or tunnel costs depend on your setup.
+- **Keep the setup small.** The application logic lives in one C# file and one HTML file, with no third-party NuGet or JavaScript packages and no separate database. The documented setup uses Docker, or you can run it with .NET 10. The web page includes no third-party scripts or analytics.
+- **Inspect and adapt it.** Yolla is free software under the MIT licence. Read the code, modify it for your needs or contribute a change.
 
-How it compares with the tools people usually reach for:
+## When it fits
 
-| | Yolla | LocalSend | PairDrop | copyparty | Immich / Nextcloud |
-|---|:-:|:-:|:-:|:-:|:-:|
-| Nothing to install on the phone | ✅ | ❌ app on both devices | ✅ | ✅ | ❌ app |
-| Works away from home | ✅ | ❌ same Wi‑Fi only | ~ both pages must be open | ✅ | ✅ |
-| Files land in a normal folder | ✅ | ✅ | ~ browser downloads, as ZIP | ✅ | ❌ its own library |
-| Nothing to learn or configure | ✅ | ✅ | ✅ | ❌ hundreds of options | ❌ |
-| Resumes a broken 400‑file batch | ✅ | ❌ | ❌ | ✅ | ✅ |
-| Uploads can't be read back | ✅ | – | – | ~ optional | ❌ |
+Yolla fits when you want to send files to your own machine and make selected files available through a browser. For example, you can send photos to your home server while travelling, collect files from several of your devices in one folder, or put a document in `Outbox` to download on your phone.
 
-<sub>As of September 2026, to the best of my knowledge. If I got something wrong about your favourite tool, open an issue and I'll fix the table.</sub>
-
-When you should use something else: if you also want to browse and download your files from the phone, with thumbnails, WebDAV and a media player, [copyparty](https://github.com/9001/copyparty) does all of that and much more. If you want a real photo library with face recognition and automatic backup from the phone, that's [Immich](https://immich.app). If both devices are always on the same Wi‑Fi and installing an app is no problem, [LocalSend](https://localsend.org) is great. Yolla is for when you want exactly one thing: get these files onto my computer, now, without setting anything up.
+It handles transfers you start yourself. It does not provide automatic background photo backup, a synchronised photo library, storage redundancy or separate user accounts. If you need those features, a dedicated storage or backup service may fit better. Yolla does not automatically free space on your phone: before deleting local copies, check the transferred files and keep a separate backup of anything important.
 
 ## What it does
 
+- Transfers the bytes provided by the browser without recompressing photos or videos. The device may convert media before upload; see the iPhone note below.
 - Uploads three files at a time with retries, and shows progress, speed and time left.
 - Streams every file to disk in 32 MB pieces. A dropped connection costs you at most one piece; re-select the same files and it resumes from the exact byte.
-- Never overwrites. Same name and same size is skipped as a duplicate; same name but a different file becomes `IMG_0001 (1).JPG`.
-- Keeps the photo's date as the file date, so the folder sorts by when the photo was taken. Optional `YYYY/YYYY-MM/` subfolders.
+- Never overwrites existing files. The browser skips a file if its name and size match an existing upload; this is not a content comparison. Other name collisions get a suffix such as `IMG_0001 (1).JPG`.
+- Preserves the last-modified timestamp supplied by the browser, where the filesystem supports it. Optional `YYYY/YYYY-MM/` subfolders use that timestamp; the app does not extract the capture date from EXIF.
 - **Receive** tab: put files in the `Outbox` folder on the computer and they appear on the phone. Download one, several as a ZIP, or on iPhone tap *Save to Photos* and they go straight into the gallery.
-- Works in any browser. Drag & drop and paste on desktop. A second button takes non-media files. Light and dark theme, English and Turkish. On iPhone, *Add to Home Screen* gives you an app icon.
+- Uses a browser interface. Drag & drop and paste on desktop. A second button takes non-media files. Light and dark theme, English and Turkish. On iPhone, *Add to Home Screen* gives you an app icon.
 - Optional access token, optional size cap, optional subfolder per batch.
 - Runs behind Cloudflare Tunnel, ngrok, your own reverse proxy (even under a sub-path) or plain LAN. Chunks stay under Cloudflare's 100 MB request limit.
 
@@ -60,7 +52,7 @@ When you should use something else: if you also want to browse and download your
 
 ### Three things to decide first
 
-The installer doesn't ask questions. It uses defaults, and you can change anything later by running it again. It's still worth knowing what it sets up:
+The installer uses defaults for Yolla settings, which you can change by running it again. If Docker is missing, it may ask before installing it. It's still worth knowing what it sets up:
 
 1. **Folder.** Where uploads go on this computer. Default is `Pictures/Yolla` in your home folder. Any folder works; it gets created if it doesn't exist.
 2. **Access token.** A password. The phone asks for it once and remembers it. Without a token, anyone who finds the URL can put files on your disk, so keep one unless Yolla never leaves your Wi‑Fi. If you don't pick one, the installer generates a random one and shows it.
@@ -180,7 +172,7 @@ Compose adds `YOLLA_DIR`, `YOLLA_PORT`, `YOLLA_BIND` (`127.0.0.1` behind a local
 
 ## How it works
 
-Before each file, the page asks `GET /api/exists`: is it already there (skip) or half there (resume from that byte)? Then it sends the file in chunks with `PUT /api/upload`; each chunk is a raw request body appended to a `.part` file. The last chunk renames the file into place and restores its timestamp. Nothing is held in memory, so memory use stays flat no matter how big the file is. The Receive tab reads only the Outbox folder: `GET /api/outbox` lists it, `/api/outbox/file` serves one file (with range requests, so videos scrub), `/api/outbox/zip` streams several as a ZIP. The full API, including a one-line `curl -T`, is in [docs/api.md](docs/api.md).
+Before each file, the page asks `GET /api/exists`: is it already there (skip) or half there (resume from that byte)? Then it sends the file in chunks with `PUT /api/upload`; each chunk is a raw request body appended to a `.part` file. The last chunk renames the file into place and restores its timestamp. Uploads use a fixed-size buffer rather than loading the whole file into memory. The Receive tab reads only the Outbox folder: `GET /api/outbox` lists it, `/api/outbox/file` serves one file (with range requests, so videos scrub), `/api/outbox/zip` streams several as a ZIP. The full API, including a one-line `curl -T`, is in [docs/api.md](docs/api.md).
 
 There's an end-to-end test in `tests/smoke.sh` that publishes the app, starts it and hits every endpoint (chunking, resume, dedupe, size cap, throttling). It runs in CI.
 

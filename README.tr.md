@@ -1,6 +1,6 @@
 <p align="center"><img src="src/Yolla/wwwroot/icon-192.png" width="88" alt=""></p>
 <h1 align="center">Yolla</h1>
-<p align="center">Telefonunuzdaki fotoğrafları, videoları ve dosyaları kendi bilgisayarınızdaki bir klasöre gönderin.<br>Telefona uygulama kurmadan, bulut kullanmadan, hesap açmadan.</p>
+<p align="center">Kendi bilgisayarınızda veya sunucunuzda hafif bir dosya aktarım aracı.<br>Açık kaynak. Tarayıcıdan erişim. Kontrolünüzde depolama.</p>
 
 <p align="center">
   <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/lisans-MIT-blue.svg"></a>
@@ -11,48 +11,40 @@
 
 <p align="center"><img src="docs/demo.gif" width="300" alt="iPhone'da Yolla: 13 fotoğraf seçiliyor, bilgisayardaki klasöre iniyor">&nbsp;&nbsp;<img src="docs/receive-dark.png" width="300" alt="Koyu temada Al sekmesi"></p>
 
-## Yolla Nedir?
+## Yolla nedir?
 
-Yolla, dosya kabul eden küçücük bir web sayfasıdır. Dosyaların gitmesini istediğiniz bilgisayarda çalışır; bu bir Windows PC, Mac, Linux makinesi, NAS ya da Raspberry Pi olabilir. Telefonunuzdan sayfanın adresini açar, **Fotoğraf & Video** düğmesine basıp istediğiniz kadar fotoğraf seçersiniz; hepsi o bilgisayardaki sıradan bir klasöre iner. Tersi de mümkündür: bilgisayarda `Outbox` klasörüne koyduğunuz dosyalar telefonda görünür, oradan alırsınız. Önüne bir tünel ya da kendi alan adınızı koyduğunuzda yalnızca evde değil, her yerden çalışır.
+Yolla, kendi bilgisayarınızda veya sunucunuzda çalıştırabileceğiniz hafif, açık kaynak bir dosya aktarım aracıdır. Tarayıcıdan adresini açarak fotoğraf, video ve diğer dosyaları seçtiğiniz klasöre gönderebilirsiniz. Ters yönde aktarım için sunucudaki `Outbox` klasörüne dosya koymanız yeterlidir; başka bir cihazdan **Al** sekmesini açıp indirebilirsiniz.
 
-Bu projeyi yazmamın sebebi basit: iPhone'daki birkaç yüz tatil fotoğrafını Windows'a aktarmak hâlâ gereğinden zor. iCloud for Windows sık sık sorun çıkarıyor, AirDrop yalnızca Apple cihazlar arasında çalışıyor, dosya aktarma uygulamalarının hepsi iki cihaza da kurulmayı ve aynı Wi‑Fi ağında olmayı şart koşuyor. Ben tam tersini istedim: tek bir konteyner, tek bir sayfa, kendi klasörüm. Projenin tamamı bir C# dosyası ile bir HTML dosyasından oluşuyor ve hiçbir harici bağımlılığı yok. Bir akşamda okunur, sonra unutulur.
+Bu projeyi, iPhone'umdaki fotoğraf ve videoları Windows bilgisayarıma sade bir web sayfası üzerinden aktarmak için geliştirdim. Aynı yöntem Android telefon, tablet veya başka bir bilgisayarda da kullanılabilir: gönderen cihazın bir tarayıcıya ve Yolla adresinize erişime ihtiyacı vardır. Sunucu tarafı Windows, macOS veya Linux'ta; uyumlu NAS ve Raspberry Pi kurulumlarında çalışabilir.
+
+Yolla, kapsamı bilinçli olarak dar tutulmuş küçük bir kişisel araçtır. Amacı büyük depolama platformlarıyla yarışmak veya sundukları bütün özelliklerin yerini almak değildir. Kendi altyapınızda dosya aktarımı yapabileceğiniz, kodunu inceleyip ihtiyacınıza göre uyarlayabileceğiniz hafif bir yapı sunar.
 
 ## Neden Yolla?
 
-Dosya aktarmanın pek çok yolu var. Yolla'yı farklı kılan şunlar:
+- **Dosyaların nerede duracağını siz seçersiniz.** Yüklemeler bilgisayarınızda veya sunucunuzda normal bir klasöre kaydedilir. Diski ve klasörü siz belirler, dosyaları alıştığınız araçlarla açarsınız.
+- **Gönderen cihazda tarayıcı yeterlidir.** Telefona uygulama kurmak veya Yolla hesabı açmak gerekmez. Sunucuyu bir kez kurduktan sonra adresine girip erişim şifrenizi kullanırsınız.
+- **İhtiyacınıza göre ayarlarsınız.** Ortak erişim şifresini, dosya boyutu sınırını ve yükleme alt klasörlerini belirleyebilirsiniz. İndirmeye açık klasörü seçebilir veya indirmeleri tamamen kapatabilirsiniz.
+- **İki yönde aktarım yaparsınız.** Yolla adresine ulaşabilen ve erişim şifresiyle giriş yapabilen cihazlar dosya yükleyebilir, `Outbox` klasörüne koyduğunuz dosyaları indirebilir.
+- **Ev dışından da erişebilirsiniz.** Bir tünel veya kendi HTTPS reverse proxy'nizle dışarıdan erişimi yapılandırabilirsiniz. Sunucunun açık, disk alanının yeterli ve adresin gönderen cihazdan erişilebilir olması gerekir.
+- **Elinizdeki depolama alanını kullanırsınız.** Örneğin tatil fotoğraflarını ek bir bulut depolama aboneliği almadan kendi diskinize aktarabilirsiniz. Depolama, bağlantı ve varsa sunucu ya da tünel hizmetinin maliyeti seçtiğiniz kuruluma bağlıdır.
+- **Kurulum küçük kalır.** Uygulamanın işleyişi bir C# dosyası ile bir HTML dosyasında yer alır. Üçüncü taraf NuGet veya JavaScript paketi ve ayrı bir veritabanı gerektirmez. Belgelenen kurulum Docker kullanır; .NET 10 ile de çalıştırabilirsiniz. Web sayfasında üçüncü taraf betik veya analiz aracı bulunmaz.
+- **Kodu inceleyip değiştirebilirsiniz.** Yolla, MIT lisansıyla ücretsiz ve açık kaynak olarak sunulur. Kodu okuyabilir, kendi ihtiyacınıza göre uyarlayabilir veya katkıda bulunabilirsiniz.
 
-- **Telefona hiçbir şey kurulmaz.** Tarayıcıda bir adres açmanız yeterlidir. iPhone, Android, eşinizin telefonu, bir arkadaşınızın bilgisayarı; tarayıcısı olan her cihazda çalışır.
-- **Öğrenilecek bir şey yoktur.** Tek sayfa, iki düğme. Hesap yok, kütüphane yok, ayar ekranı yok, yapılandırma dosyası yok.
-- **Dosyalar klasöre iner.** Kendi bilgisayarınızdaki normal bir klasöre; buluta ya da bir uygulamanın özel veritabanına değil. Explorer'da veya Finder'da diğer klasörler gibi açarsınız.
-- **Her yerden çalışır.** Ücretsiz bir tünelle aynı adres ofisten, otelden, başka bir ülkeden de çalışır.
-- **Toplu aktarım için tasarlandı.** 400 fotoğraf seçin, telefonu bırakın. Bağlantı koparsa aynı fotoğrafları yeniden seçin: kaldığı yerden devam eder, aynı fotoğrafı iki kez yüklemez.
-- **Yüklenenler geri okunamaz.** Telefonun görebildiği tek klasör, bilerek doldurduğunuz Outbox klasörüdür. Yüklediğiniz her şey yalnızca yazılabilir; bağlantıyı ele geçiren biri fotoğraflarınıza göz atamaz, şifre koyduysanız yükleme de yapamaz.
-- **Okunabilecek kadar küçük.** İki dosya. Bağımlılık yok, telemetri yok, kendi ağınızın dışına giden tek bir istek yok.
-- **Ücretsiz.** MIT lisansı. Windows, macOS ve Linux'ta tek satırla kurulur; Raspberry Pi'de ya da NAS'ta da sorunsuz çalışır.
+## Hangi ihtiyaçlara uygun?
 
-Sık kullanılan araçlarla karşılaştırması:
+Yolla, dosyaları kendi makinenize göndermek ve seçtiğiniz dosyaları tarayıcı üzerinden indirilebilir hâle getirmek istediğinizde kullanışlıdır. Seyahatteyken evdeki sunucunuza fotoğraf gönderebilir, farklı cihazlarınızdaki dosyaları tek klasörde toplayabilir veya telefona indireceğiniz bir belgeyi `Outbox` klasörüne koyabilirsiniz.
 
-| | Yolla | LocalSend | PairDrop | copyparty | Immich / Nextcloud |
-|---|:-:|:-:|:-:|:-:|:-:|
-| Telefona kurulum gerektirmez | ✅ | ❌ iki cihaza da uygulama | ✅ | ✅ | ❌ uygulama |
-| Ev dışından çalışır | ✅ | ❌ yalnızca aynı Wi‑Fi | ~ iki tarafta da sayfa açık olmalı | ✅ | ✅ |
-| Dosyalar sıradan bir klasöre iner | ✅ | ✅ | ~ tarayıcının indirme klasörüne, ZIP olarak | ✅ | ❌ kendi kütüphanesine |
-| Öğrenilecek, ayarlanacak bir şey yok | ✅ | ✅ | ✅ | ❌ yüzlerce seçenek | ❌ |
-| Kopan 400 dosyalık aktarımı sürdürür | ✅ | ❌ | ❌ | ✅ | ✅ |
-| Yüklenenler geri okunamaz | ✅ | – | – | ~ ayarlanabilir | ❌ |
-
-<sub>Eylül 2026 itibarıyla, bildiğim kadarıyla. Kullandığınız araç hakkında yanlış bir bilgi varsa bir issue açın, düzelteyim.</sub>
-
-Başka bir araç ne zaman daha uygun olur? Dosyalarınıza telefondan göz atıp indirmek de istiyorsanız, üstelik küçük resim, WebDAV ve medya oynatıcı da gerekiyorsa, [copyparty](https://github.com/9001/copyparty) bunların hepsini ve çok daha fazlasını sunuyor. Yüz tanıma yapan ve telefondan otomatik yedek alan tam bir fotoğraf arşivi arıyorsanız [Immich](https://immich.app) doğru adres. İki cihaz her zaman aynı Wi‑Fi ağındaysa ve uygulama kurmak sizin için sorun değilse [LocalSend](https://localsend.org) gayet iyi iş görür. Yolla ise tek bir şeye odaklanır: dosyaların, hiçbir şey ayarlamadan, hemen bilgisayarınıza geçmesine.
+Aktarımları siz başlatırsınız. Otomatik arka plan yedeklemesi, senkronize fotoğraf arşivi, yedekli depolama veya ayrı kullanıcı hesapları sunmaz. Bu özelliklere ihtiyaç duyuyorsanız kapsamlı bir depolama ya da yedekleme hizmeti daha uygun olabilir. Yolla telefonda otomatik yer açmaz: yerel kopyaları silmeden önce aktarılan dosyaları kontrol edin ve önemli dosyaların ayrıca yedeğini tutun.
 
 ## Neler yapar?
 
+- Tarayıcının ilettiği dosyayı fotoğraf veya video sıkıştırması uygulamadan aktarır. Cihaz, yükleme öncesinde medyayı dönüştürebilir; aşağıdaki iPhone notuna bakın.
 - Aynı anda üç dosya yükler, hata olursa yeniden dener; ilerlemeyi, hızı ve kalan süreyi gösterir.
 - Her dosyayı 32 MB'lık parçalar hâlinde doğrudan diske yazar. Bağlantı koparsa en fazla bir parça kaybedersiniz; aynı dosyaları yeniden seçtiğinizde kaldığı bayttan devam eder.
-- Hiçbir dosyanın üzerine yazmaz. Adı ve boyutu aynı olan dosya zaten var kabul edilir ve atlanır; adı aynı, içeriği farklı olan `IMG_0001 (1).JPG` olarak kaydedilir.
-- Fotoğrafın çekim tarihini dosya tarihi olarak korur; böylece klasör yükleme sırasına değil çekim tarihine göre sıralanır. İsterseniz dosyaları `YYYY/YYYY-AA/` alt klasörlerine dağıtır.
+- Mevcut dosyaların üzerine yazmaz. Tarayıcı, adı ve boyutu mevcut bir yüklemeyle eşleşen dosyayı atlar; bu bir içerik karşılaştırması değildir. Diğer ad çakışmalarında `IMG_0001 (1).JPG` gibi bir ek kullanılır.
+- Dosya sistemi desteklediğinde tarayıcının ilettiği son değiştirilme tarihini korur. İsteğe bağlı `YYYY/YYYY-AA/` alt klasörleri bu tarihe göre oluşturulur; uygulama EXIF içinden çekim tarihi okumaz.
 - **Al** sekmesi: bilgisayarda `Outbox` klasörüne koyduğunuz dosyalar telefonda listelenir. Tek dosyayı indirebilir, birkaçını seçip ZIP olarak alabilir, iPhone'da *Fotoğraflara Kaydet* ile doğrudan galeriye aktarabilirsiniz.
-- Her tarayıcıda çalışır. Bilgisayarda sürükle-bırak ve yapıştırma desteklenir. İkinci düğme fotoğraf dışındaki dosyaları da kabul eder. Açık ve koyu tema, Türkçe ve İngilizce arayüz. iPhone'da *Ana Ekrana Ekle* dendiğinde bir uygulama simgesi gibi görünür.
+- Tarayıcı üzerinden kullanılır. Bilgisayarda sürükle-bırak ve yapıştırma desteklenir. İkinci düğme fotoğraf dışındaki dosyaları da kabul eder. Açık ve koyu tema, Türkçe ve İngilizce arayüz. iPhone'da *Ana Ekrana Ekle* dendiğinde bir uygulama simgesi gibi görünür.
 - İsteğe bağlı erişim şifresi, dosya boyutu sınırı ve her aktarım için ayrı alt klasör.
 - Cloudflare Tunnel, ngrok, kendi reverse proxy'niz (alt yol altında bile) ya da düz yerel ağ; hepsinin arkasında çalışır. Parçalar Cloudflare'in istek başına 100 MB sınırının altında kalır.
 
@@ -60,7 +52,7 @@ Başka bir araç ne zaman daha uygun olur? Dosyalarınıza telefondan göz atıp
 
 ### Önce karar verilecek üç şey
 
-Kurulum betiği soru sormaz; her şeyi varsayılan değerlerle kurar. Bir ayarı sonradan değiştirmek isterseniz betiği yeniden çalıştırmanız yeterlidir. Yine de neleri ayarladığını bilmekte fayda var:
+Kurulum betiği Yolla ayarları için varsayılan değerleri kullanır. Docker eksikse kurulumu için onay isteyebilir. Bir ayarı sonradan değiştirmek isterseniz betiği yeniden çalıştırabilirsiniz. Yine de neleri ayarladığını bilmekte fayda var:
 
 1. **Klasör.** Yüklenen dosyaların bu bilgisayarda gideceği yer. Varsayılan olarak ev klasörünüzün içindeki `Pictures/Yolla`. Herhangi bir klasör olabilir; yoksa betik oluşturur.
 2. **Erişim şifresi.** Bir paroladır. Telefon bunu bir kez sorar, sonra hatırlar. Şifre koymazsanız adresi bulan herkes diskinize dosya atabilir; bu yüzden Yolla'yı evden dışarı hiç açmayacak olsanız bile bir şifre koyun. Siz belirlemezseniz betik rastgele bir şifre üretip ekrana yazar.
@@ -180,7 +172,7 @@ Compose kullanıyorsanız ek olarak `YOLLA_DIR`, `YOLLA_PORT`, `YOLLA_BIND` (yer
 
 ## Nasıl çalışır?
 
-Sayfa, her dosyadan önce `GET /api/exists` ile sunucuya sorar: bu dosya zaten var mı (varsa atlanır), yarım mı kalmış (kaldığı bayttan devam edilir)? Ardından dosyayı `PUT /api/upload` ile parça parça gönderir; her parça ham istek gövdesi olarak `.part` dosyasının sonuna eklenir. Son parça geldiğinde dosya asıl adına taşınır ve tarihi geri yazılır. Hiçbir şey bellekte tutulmaz; dosya ne kadar büyük olursa olsun bellek kullanımı değişmez. Al sekmesi yalnızca Outbox klasörünü okur: `GET /api/outbox` listeler, `/api/outbox/file` tek dosyayı verir (aralık istekleri desteklendiği için video ileri sarılabilir), `/api/outbox/zip` birkaç dosyayı ZIP olarak akıtır. API'nin tamamı, tek satırlık `curl -T` örneğiyle birlikte [docs/api.md](docs/api.md) dosyasındadır.
+Sayfa, her dosyadan önce `GET /api/exists` ile sunucuya sorar: bu dosya zaten var mı (varsa atlanır), yarım mı kalmış (kaldığı bayttan devam edilir)? Ardından dosyayı `PUT /api/upload` ile parça parça gönderir; her parça ham istek gövdesi olarak `.part` dosyasının sonuna eklenir. Son parça geldiğinde dosya asıl adına taşınır ve tarihi geri yazılır. Yüklemeler dosyanın tamamını belleğe almak yerine sabit boyutlu bir tampon üzerinden diske yazılır. Al sekmesi yalnızca Outbox klasörünü okur: `GET /api/outbox` listeler, `/api/outbox/file` tek dosyayı verir (aralık istekleri desteklendiği için video ileri sarılabilir), `/api/outbox/zip` birkaç dosyayı ZIP olarak akıtır. API'nin tamamı, tek satırlık `curl -T` örneğiyle birlikte [docs/api.md](docs/api.md) dosyasındadır.
 
 `tests/smoke.sh` uçtan uca bir testtir: uygulamayı derleyip başlatır ve her endpoint'i tek tek dener (parçalama, devam etme, kopya tespiti, boyut sınırı, hatalı şifre freni). CI'da her push'ta çalışır.
 
