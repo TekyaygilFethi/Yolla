@@ -120,7 +120,11 @@ docker run -d --name yolla --restart unless-stopped -p 8080:8080 \
   ghcr.io/tekyaygilfethi/yolla:latest
 ```
 
-Windows'ta klasör yolunu `/` ile yazın: `-v "C:/Users/siz/Pictures/Yolla:/data"`. Konteyner 1000 numaralı kullanıcıyla çalışır; Linux'ta klasör başka bir kullanıcıya aitse komuta `--user "$(id -u):$(id -g)"` ekleyin. Compose kullanacaksanız: `git clone`, ardından `cp .env.example .env`, dosyayı düzenleyin ve `docker compose up -d`. Docker yoksa [.NET 10 SDK](https://dotnet.microsoft.com/download) ile de çalışır: `cd src/Yolla && UPLOAD_DIR=/yol UPLOAD_TOKEN=gizli dotnet run -c Release`.
+Windows'ta klasör yolunu `/` ile yazın: `-v "C:/Users/siz/Pictures/Yolla:/data"`.
+
+Yolla, Docker içinde yönetici yetkisi olmayan bir kullanıcıyla çalışır (varsayılan kullanıcı kimliği, UID: 1000). Linux'ta hedef klasöre yazma izni verilmesi gerekebilir. Kendi kullanıcınızın kimliğiyle çalıştırmak için komuta `--user "$(id -u):$(id -g)"` ekleyebilirsiniz; bu kullanıcının hedef klasöre yazma izni olmalıdır.
+
+Compose kullanacaksanız: `git clone`, ardından `cp .env.example .env`, dosyayı düzenleyin ve `docker compose up -d`. Docker yoksa [.NET 10 SDK](https://dotnet.microsoft.com/download) ile de çalışır: `cd src/Yolla && UPLOAD_DIR=/yol UPLOAD_TOKEN=gizli dotnet run -c Release`.
 
 ## Kullanım
 
@@ -152,7 +156,7 @@ Yolla, 8080 portunda çalışan sıradan bir HTTP sunucusudur; HTTP trafiği ile
 - **Ekran açık kalmalı.** HTTPS üzerinden bağlandığınızda Yolla iOS'tan ekranı açık tutmasını ister. Düz `http://` yerel ağ adreslerinde bunu yapamaz; otomatik kilidi kendiniz kapatın. Yüzlerce öğe seçtiğinizde yükleme başlamadan önce kısa bir bekleme olması normaldir, iOS dosyaları hazırlar.
 - **Şifre koyun.** Evden dışarı hiç açmayacak olsanız bile.
 - **Windows güvenlik duvarı:** telefon `http://<pc-ip>:8080` adresine ulaşamıyorsa Docker Desktop için TCP 8080 portuna izin verin.
-- **Linux'ta izinler:** konteyner uid 1000 ile çalışır. Script `PUID`/`PGID` değerlerini kullanıcınıza göre ayarlar; `docker run` kullanıyorsanız `--user` ekleyin.
+- **Linux'ta izinler:** Yolla'yı çalıştıran kullanıcının hedef klasöre yazma izni olmalıdır. Kurulum scripti `PUID`/`PGID` değerlerini kullanıcınıza göre ayarlar; elle `docker run` kullanıyorsanız yukarıdaki `--user` seçeneğiyle kendi kullanıcı kimliğinizi belirtebilirsiniz.
 
 ## Ayarlar
 
