@@ -15,7 +15,7 @@
 
 Yolla is a lightweight, open-source file transfer tool you run on your own computer or server. Open its address in a browser to send photos, videos and other files directly to a folder you choose. To transfer files the other way, put them in the server's `Outbox` folder and download them from the **Receive** tab on another device.
 
-I built it to move photos and videos from my iPhone to my Windows PC through a simple web page. That idea also works with an Android phone, a tablet or another computer: the sending device only needs a browser and access to your Yolla address. The server can run on Windows, macOS or Linux, including compatible NAS and Raspberry Pi setups.
+Photos, videos and other files can be transferred from an iPhone, Android phone, tablet or computer through a simple web page. The sending device only needs a browser and access to the Yolla address. The server can run on Windows, macOS or Linux, including compatible NAS and Raspberry Pi setups.
 
 Yolla is a small personal tool with a deliberately narrow scope. Its aim is not to compete with major storage platforms or replace their full feature sets. It offers a lightweight way to transfer files on infrastructure you control, with a small codebase you can inspect and adapt.
 
@@ -135,9 +135,9 @@ Windows paths go with forward slashes: `-v "C:/Users/you/Pictures/Yolla:/data"`.
 
 Yolla is a plain HTTP server on port 8080. Anything that can forward HTTP to it works. Pick one:
 
-**Cloudflare Tunnel** is the one I'd recommend. Free, no bandwidth cap, HTTPS, no port forwarding, works behind CGNAT.
+**Cloudflare Tunnel** provides HTTPS access without router port forwarding and can be used behind CGNAT.
 
-- Quick tunnel, no account: `--tunnel quick` in the installer, or `docker compose --profile quick up -d`, or with cloudflared installed on the machine, `cloudflared tunnel --url http://localhost:8080`. You get a random `https://….trycloudflare.com` address that changes on every restart. Good for "send me the photos now".
+- Quick tunnel, no account: `--tunnel quick` in the installer, or `docker compose --profile quick up -d`, or with cloudflared installed on the machine, `cloudflared tunnel --url http://localhost:8080`. A random `https://….trycloudflare.com` address is assigned and changes on every restart. Suitable for temporary transfers.
 - Named tunnel, your own domain, permanent address: in the [Zero Trust dashboard](https://one.dash.cloudflare.com) go to **Networks → Tunnels → Create a tunnel → Cloudflared**, pick **Docker** and copy the token. Run the installer with `--tunnel cloudflare --cf-token <token>` (or put it in `.env` and use the `cloudflare` profile). Back in the dashboard add a **Public Hostname**: subdomain `yolla`, your domain, service **HTTP**, URL `yolla:8080`. Open `https://yolla.yourdomain.com` on the phone. If you want a proper login screen in front, add **Cloudflare Access** (Access → Applications → Self-hosted, one-time PIN by e-mail); the free plan covers up to 50 users.
 
 **ngrok** is the quickest way to get a URL for a test. Sign up, run `ngrok config add-authtoken <token>`, then `ngrok http 8080`. Or `--tunnel ngrok --ngrok-token <token>` in the installer; the URL is at <http://localhost:4040>. Claim the free static domain in the ngrok dashboard and pass `--ngrok-domain name.ngrok-free.app` to keep the same URL. The first visit shows ngrok's interstitial page; tap **Visit Site** once. Yolla sends the header that skips it for API calls, so uploads aren't affected.

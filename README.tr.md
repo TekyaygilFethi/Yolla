@@ -15,7 +15,7 @@
 
 Yolla, kendi bilgisayarınızda veya sunucunuzda çalıştırabileceğiniz hafif, açık kaynak bir dosya aktarım aracıdır. Tarayıcıdan adresini açarak fotoğraf, video ve diğer dosyaları seçtiğiniz klasöre gönderebilirsiniz. Ters yönde aktarım için sunucudaki `Outbox` klasörüne dosya koymanız yeterlidir; başka bir cihazdan **Al** sekmesini açıp indirebilirsiniz.
 
-Bu projeyi, iPhone'umdaki fotoğraf ve videoları Windows bilgisayarıma sade bir web sayfası üzerinden aktarmak için geliştirdim. Aynı yöntem Android telefon, tablet veya başka bir bilgisayarda da kullanılabilir: gönderen cihazın bir tarayıcıya ve Yolla adresinize erişime ihtiyacı vardır. Sunucu tarafı Windows, macOS veya Linux'ta; uyumlu NAS ve Raspberry Pi kurulumlarında çalışabilir.
+iPhone, Android telefon, tablet veya bilgisayardaki fotoğraf, video ve diğer dosyalar sade bir web sayfası üzerinden aktarılabilir. Gönderen cihazda yalnızca bir tarayıcı ve Yolla adresine erişim gerekir. Sunucu tarafı Windows, macOS veya Linux'ta; uyumlu NAS ve Raspberry Pi kurulumlarında çalıştırılabilir.
 
 Yolla, kapsamı bilinçli olarak dar tutulmuş küçük bir kişisel araçtır. Amacı büyük depolama platformlarıyla yarışmak veya sundukları bütün özelliklerin yerini almak değildir. Kendi altyapınızda dosya aktarımı yapabileceğiniz, kodunu inceleyip ihtiyacınıza göre uyarlayabileceğiniz hafif bir yapı sunar.
 
@@ -135,9 +135,9 @@ Windows'ta klasör yolunu `/` ile yazın: `-v "C:/Users/siz/Pictures/Yolla:/data
 
 Yolla, 8080 portunda çalışan sıradan bir HTTP sunucusudur; HTTP trafiği iletebilen her şeyin arkasına koyulabilir. Seçenekler:
 
-**Cloudflare Tunnel**, tavsiye ettiğim yol. Ücretsiz, trafik sınırı yok, HTTPS hazır gelir, modemde port açmak gerekmez, CGNAT arkasında bile çalışır.
+**Cloudflare Tunnel** ile modemde port açmadan HTTPS erişimi sağlanabilir. CGNAT arkasındaki kurulumlarda da kullanılabilir.
 
-- Hızlı tünel, hesap gerekmez: betikte `--tunnel quick`, ya da `docker compose --profile quick up -d`, ya da bilgisayarda cloudflared kuruluysa `cloudflared tunnel --url http://localhost:8080`. Her yeniden başlatmada değişen rastgele bir `https://….trycloudflare.com` adresi alırsınız. "Fotoğrafları hemen göndereyim" durumları için idealdir.
+- Hızlı tünel, hesap gerekmez: betikte `--tunnel quick`, ya da `docker compose --profile quick up -d`, ya da bilgisayarda cloudflared kuruluysa `cloudflared tunnel --url http://localhost:8080`. Her yeniden başlatmada değişen rastgele bir `https://….trycloudflare.com` adresi oluşturulur. Geçici aktarımlar için kullanılabilir.
 - Kalıcı tünel, kendi alan adınızla: [Zero Trust panelinde](https://one.dash.cloudflare.com) **Networks → Tunnels → Create a tunnel → Cloudflared** yolunu izleyin, **Docker** seçeneğini seçip token'ı kopyalayın. Betiği `--tunnel cloudflare --cf-token <token>` ile çalıştırın (ya da token'ı `.env` dosyasına yazıp `cloudflare` profilini kullanın). Panele dönüp bir **Public Hostname** ekleyin: subdomain `yolla`, alan adınız, servis türü **HTTP**, URL `yolla:8080`. Artık telefondan `https://yolla.alanadiniz.com` adresine bağlanabilirsiniz. Önüne gerçek bir giriş ekranı istiyorsanız **Cloudflare Access** ekleyin (Access → Applications → Self-hosted, e-postaya gelen tek kullanımlık kodla giriş); ücretsiz plan 50 kullanıcıya kadar yeterlidir.
 
 **ngrok**, deneme için adres almanın en hızlı yolu. Hesap açın, `ngrok config add-authtoken <token>` komutunu bir kez çalıştırın, ardından `ngrok http 8080`. Ya da betikte `--tunnel ngrok --ngrok-token <token>` verin; adresi <http://localhost:4040> üzerinden görebilirsiniz. ngrok panelinden ücretsiz sabit alan adını alıp `--ngrok-domain isim.ngrok-free.app` verirseniz adres hep aynı kalır. İlk girişte ngrok'un ara sayfası çıkar; bir kez **Visit Site** düğmesine basmanız yeterlidir. Yolla, API isteklerine bu sayfayı atlatan başlığı eklediği için yüklemeler etkilenmez.
